@@ -1,5 +1,5 @@
 # copy_paste_form_value
-フォームの値を ctrl + shift + i でコピー、ctrl + shift + o で同じフォームに貼り付け
+フォームの値を Alt + i でコピー、Alt + o で同じフォームに貼り付け
 
 # how to use
 
