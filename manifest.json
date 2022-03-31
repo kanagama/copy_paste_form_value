@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "copy paste form value",
+  "version": "1.0.0",
+  "description": "フォームの値を Alt + i でコピー、Alt + o でフォームに貼り付け",
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "content_scripts": [{
+    "matches": [ "http://*/*", "https://*/*" ],
+    "js":[
+      "js/jQuery.js", "js/content.js"
+    ],
+    "run_at": "document_end"
+  }],
+  "background": {
+    "service_worker" : "background.js"
+  },
+  "commands": {
+    "copy": {
+      "suggested_key": {
+        "default": "Alt+I"
+      },
+      "description": "Form の値を保持する"
+    },
+    "paste": {
+      "suggested_key": {
+        "default": "Alt+O"
+      },
+      "description": "保持した値を Form に出力する"
+    }
+  },
+  "permissions": [
+    "storage",
+    "commands",
+    "tabs"
+  ]
+}
