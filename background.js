@@ -1,6 +1,6 @@
-let queryOptions = { 
-  active: true, 
-  currentWindow: true 
+let queryOptions = {
+  active: true,
+  currentWindow: true
 };
 
 // キークリックイベントを取得

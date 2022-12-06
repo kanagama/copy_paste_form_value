@@ -5,6 +5,7 @@ const error_message = 'form does not exist.';
 const disabled = [
   '_method',
   '_csrfToken',
+  '_token',
 ];
 
 /**
@@ -27,14 +28,39 @@ chrome.runtime.onMessage.addListener(function (command, sender, response)
 });
 
 /**
+ * form が存在するかチェックする
+ *
+ * @returns {bool}
+ */
+function isExistForm()
+{
+  if (document.getElementsByTagName('form').length <= 0) {
+    alert(error_message);
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * 配列の中に指定した値が存在するかチェックする
+ *
+ * @param {*} value
+ * @returns
+ */
+function inArray(value)
+{
+  return [].indexOf.call(disabled, value);
+}
+
+/**
  * コピー
  *
- * @return {bool}
+ * @returns {bool}
  */
 function copy()
 {
-  if ($('form').length <= 0) {
-    alert(error_message);
+  if (!isExistForm()) {
     return false;
   }
 
@@ -53,15 +79,14 @@ function copy()
  */
 function paste()
 {
-  if ($('form').length <= 0) {
-    alert(error_message);
+  if (!isExistForm()) {
     return false;
   }
 
   chrome.storage.local.get([strage], (result) => {
     result.form_value.forEach(function(elem) {
       // 特定の名称でない
-      if ($.inArray(elem.name, disabled) < 0) {
+      if (inArray(value)) {
         setForm(selectorEscape(elem.name), elem.value);
       }
     });
@@ -73,12 +98,34 @@ function paste()
 /**
  * フォームの値をすべて取得する
  *
- * @return {array}
+ * @return {JSON}
  */
 function serializeArray()
 {
-  console.log($('form').serializeArray());
-  return $('form').serializeArray();
+  if (!existForm()) {
+    return {};
+  }
+
+  let elements = {};
+  document.querySelector(`form`).querySelectorAll(`input, select, textarea`).forEach(function(element) {
+    if (
+      // hidden 不要（かも）
+      (element.getAttribute('type') === 'hidden')
+      ||
+      // submit は不要
+      (element.getAttribute('type') === 'submit')
+      ||
+      // radio でチェック入ってないのは読み込まない
+      (element.getAttribute('type') === 'radio' && element.checked !== true)
+    ) {
+      // continue の意味
+      return;
+    }
+
+    elements[element.getAttribute('name')] = element.value;
+  });
+
+  return JSON.stringify(elements);
 }
 
 /**
@@ -98,34 +145,41 @@ function setForm(name, value)
  * @param {string} value
  * @return {bool}
  */
- function input(name, value)
+function input(name, value)
 {
-  var elem = $('input[name=' + name + ']');
+  let elem = document.querySelectorAll('input[name=' + name + ']');
 
-  if ($(elem).length <= 0) {
+  if (elem.length <= 0) {
     return false;
   }
 
   // 同じ名称の name が存在している
-  if ($(elem).length > 1) {
-    var type = '';
-    $(elem).each(function() {
-      type = $(this).attr('type');
+  if (elem.length > 1) {
+    let type = '';
+    elem.forEach(function(element) {
+      type = element.attr('type');
       // continue
       if (type !== 'checkbox' && type !== 'radio') {
         return true;
       }
 
       // value が同じ場合 check
-      if ($(this).attr('value') === value) {
-        $(this).prop('checked', true);
+      if (element.value === value) {
+
+        element.checked = true;
         return false;
       }
     });
     return true;
   }
 
-  $(elem).val(value);
+  // hidden は格納しない
+  type = element.attr('type');
+  if (type === 'hidden') {
+    return true;
+  }
+
+  elem.value = value;
   return true;
 }
 
@@ -136,11 +190,11 @@ function setForm(name, value)
  */
  function select(name, value)
 {
-  if ($('select[name=' + name + ']').length <= 0) {
+  if (document.querySelector('select[name=' + name + ']').length <= 0) {
     return false;
   }
 
-  $('select[name=' + name + ']').val(value);
+  document.querySelector('select[name=' + name + ']').value = value;
   return true;
 }
 
@@ -151,11 +205,11 @@ function setForm(name, value)
  */
 function textarea(name, value)
 {
-  if ($('textarea[name=' + name + ']').length <= 0) {
+  if (document.querySelector('textarea[name=' + name + ']').length <= 0) {
     return false;
   }
 
-  $('textarea[name=' + name + ']').val(value);
+  document.querySelector('textarea[name=' + name + ']').value = value;
   return true;
 }
 
