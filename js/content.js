@@ -84,14 +84,18 @@ function paste()
   }
 
   chrome.storage.local.get([strage], (result) => {
-    result.form_value.forEach(function(elem) {
+
+    let object = JSON.parse(result.form_value);
+
+    Object.keys(object).forEach(function (key) {
       // 特定の名称でない
-      if (inArray(value)) {
-        setForm(selectorEscape(elem.name), elem.value);
+      if (inArray(key)) {
+        setForm(selectorEscape(key), object[key]);
       }
     });
   });
 
+  console.log('loaded this form.');
   return true;
 }
 
@@ -102,7 +106,7 @@ function paste()
  */
 function serializeArray()
 {
-  if (!existForm()) {
+  if (!isExistForm()) {
     return {};
   }
 
@@ -157,7 +161,7 @@ function input(name, value)
   if (elem.length > 1) {
     let type = '';
     elem.forEach(function(element) {
-      type = element.attr('type');
+      type = element.getAttribute('type');
       // continue
       if (type !== 'checkbox' && type !== 'radio') {
         return true;
@@ -173,10 +177,29 @@ function input(name, value)
     return true;
   }
 
-  // hidden は格納しない
-  type = element.attr('type');
-  if (type === 'hidden') {
-    return true;
+  elem.forEach(function(element) {
+    let type = element.getAttribute('type');
+    if (type === 'hidden') {
+      return true;
+    }
+
+    element.value = value;
+    return false;
+  });
+
+  return true;
+}
+
+/**
+ * @param {string} name
+ * @param {string} value
+ * @return {bool}
+ */
+ function select(name, value)
+{
+  let elem = document.querySelector('select[name=' + name + ']');
+  if (elem == null || elem.length <= 0) {
+    return false;
   }
 
   elem.value = value;
@@ -188,28 +211,14 @@ function input(name, value)
  * @param {string} value
  * @return {bool}
  */
- function select(name, value)
-{
-  if (document.querySelector('select[name=' + name + ']').length <= 0) {
-    return false;
-  }
-
-  document.querySelector('select[name=' + name + ']').value = value;
-  return true;
-}
-
-/**
- * @param {string} name
- * @param {string} value
- * @return {bool}
- */
 function textarea(name, value)
 {
-  if (document.querySelector('textarea[name=' + name + ']').length <= 0) {
+  let elem = document.querySelector('textarea[name=' + name + ']');
+  if (elem == null || elem.length <= 0) {
     return false;
   }
 
-  document.querySelector('textarea[name=' + name + ']').value = value;
+  elem.value = value;
   return true;
 }
 

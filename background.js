@@ -20,4 +20,6 @@ chrome.commands.onCommand.addListener((command) => {
 
     return true;
   });
+
+  return true;
 });
