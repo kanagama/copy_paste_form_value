@@ -1,12 +1,18 @@
 const strage = 'form_value';
-
-const error_message = 'form does not exist.';
+const toggle_params = 'toggle';
 
 const disabled = [
   '_method',
   '_csrfToken',
   '_token',
 ];
+
+// ボタンを表示する
+if (isExistForm(false)) {
+  displayCopyPasteBtn();
+}
+
+loadToggleParam();
 
 /**
  * メッセージ（キーイベント）受信
@@ -22,6 +28,8 @@ chrome.runtime.onMessage.addListener(function (command, sender, response)
     case 'paste':
       paste();
       break;
+    case 'toggle':
+      toggle();
   }
 
   return true
@@ -32,10 +40,12 @@ chrome.runtime.onMessage.addListener(function (command, sender, response)
  *
  * @returns {bool}
  */
-function isExistForm()
+function isExistForm(showAlert)
 {
   if (document.getElementsByTagName('form').length <= 0) {
-    alert(error_message);
+    if (showAlert) {
+      alert('form does not exist.');
+    }
     return false;
   }
 
@@ -60,7 +70,7 @@ function inArray(value)
  */
 function copy()
 {
-  if (!isExistForm()) {
+  if (!isExistForm(true)) {
     return false;
   }
 
@@ -79,7 +89,7 @@ function copy()
  */
 function paste()
 {
-  if (!isExistForm()) {
+  if (!isExistForm(true)) {
     return false;
   }
 
@@ -100,13 +110,58 @@ function paste()
 }
 
 /**
+ * ボタンの表示可否
+ */
+function toggle()
+{
+  const copy_button_a = document.getElementById(`copy_button_a`);
+  const paste_button_a = document.getElementById(`paste_button_a`);
+
+  if (copy_button_a.style.display === 'flex') {
+    copy_button_a.style.display = 'none';
+    paste_button_a.style.display = 'none';
+    saveToggleParam(false);
+  } else {
+    copy_button_a.style.display = 'flex';
+    paste_button_a.style.display = 'flex';
+    saveToggleParam(true);
+  }
+}
+
+/**
+ * ボタンの toggle 情報を保存
+ *
+ * @param {boolean} bool
+ */
+function saveToggleParam(bool)
+{
+  const value = { [toggle_params] : bool };
+  chrome.storage.local.set(value, () => {
+    console.log('saved this toggle_params.');
+  });
+}
+
+/**
+ * trueであればボタン呼び出し
+ */
+function loadToggleParam()
+{
+  chrome.storage.local.get([toggle_params], (result) => {
+    if (result.toggle) {
+      toggle();
+    }
+    console.log('loaded this toggle_params.');
+  });
+}
+
+/**
  * フォームの値をすべて取得する
  *
  * @return {JSON}
  */
 function serializeArray()
 {
-  if (!isExistForm()) {
+  if (!isExistForm(true)) {
     return {};
   }
 
@@ -171,6 +226,8 @@ function input(name, value)
       if (element.value === value) {
 
         element.checked = true;
+        dispatch(element);
+
         return false;
       }
     });
@@ -184,6 +241,8 @@ function input(name, value)
     }
 
     element.value = value;
+    dispatch(element);
+
     return false;
   });
 
@@ -203,6 +262,8 @@ function input(name, value)
   }
 
   elem.value = value;
+  dispatch(elem);
+
   return true;
 }
 
@@ -219,6 +280,9 @@ function textarea(name, value)
   }
 
   elem.value = value;
+
+  dispatch(elem);
+
   return true;
 }
 
@@ -231,4 +295,39 @@ function textarea(name, value)
 function selectorEscape(name)
 {
   return name.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '\\$&');
+}
+
+/**
+ * イベントを発火させる
+ *
+ * @param {object} elem
+ */
+function dispatch(elem)
+{
+  elem.dispatchEvent(new Event('change'));
+  elem.dispatchEvent(new Event('change'));
+  setTimeout(()=>{}, 20);
+}
+
+/**
+ * コピペボタンを表示する
+ */
+function displayCopyPasteBtn()
+{
+  const body = document.body;
+
+  const html =
+    '<a title="Alt + i" id="copy_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 90px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Copy</div></a>'
+    +
+    '<a title="Alt + o" id="paste_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 30px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Paste</div></a>';
+
+  body.insertAdjacentHTML("beforeend", html);
+
+  // クリックイベントを追加
+  document.querySelector(`#copy_button_a`).addEventListener('click', function(){
+    copy();
+  });
+  document.querySelector(`#paste_button_a`).addEventListener('click', function(){
+    paste();
+  });
 }
