@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "copy paste form value",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "フォームの値を Alt + i でコピー、Alt + o でフォームに貼り付け。Alt + p で画面右下にコピーボタンとペーストボタンを表示・非表示。",
   "icons": {
     "16": "img/icon16.png",
