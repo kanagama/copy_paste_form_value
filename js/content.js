@@ -8,8 +8,15 @@ const disabled = [
   '_token',
 ];
 
+// フォームが存在した場合
+if (isExistForm()) {
+  console.log('exists form.');
+}
+
 /**
  * メッセージ（キーイベント）受信
+ * Alt + i, Alt + o を押したとき
+ * 設定は manifest.js の command に書いてあるよ
  *
  * @return {bool}
  */
@@ -84,12 +91,20 @@ function paste()
   }
 
   chrome.storage.local.get([strage], (result) => {
-    result.form_value.forEach(function(elem) {
+    if (typeof result.form_value === "undefined") {
+      return;
+    }
+
+    const objects = JSON.parse(result.form_value);
+
+    Object.keys(objects).forEach(function (name) {
       // 特定の名称でない
-      if (inArray(value)) {
-        setForm(selectorEscape(elem.name), elem.value);
+      if (inArray(name)) {
+        setForm(selectorEscape(name), objects[name]);
       }
     });
+
+    console.log('paste this form.');
   });
 
   return true;
@@ -102,7 +117,7 @@ function paste()
  */
 function serializeArray()
 {
-  if (!existForm()) {
+  if (!isExistForm()) {
     return {};
   }
 
@@ -157,7 +172,7 @@ function input(name, value)
   if (elem.length > 1) {
     let type = '';
     elem.forEach(function(element) {
-      type = element.attr('type');
+      type = element.getAttribute('type');
       // continue
       if (type !== 'checkbox' && type !== 'radio') {
         return true;
@@ -174,12 +189,15 @@ function input(name, value)
   }
 
   // hidden は格納しない
-  type = element.attr('type');
-  if (type === 'hidden') {
-    return true;
-  }
+  elem.forEach(function(element) {
+    type = element.getAttribute('type');
+    if (type === 'hidden') {
+      return;
+    }
 
-  elem.value = value;
+    // hiden でなければ値を貼り付け
+    element.value = value;
+  });
   return true;
 }
 
