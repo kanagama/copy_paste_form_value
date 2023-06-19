@@ -17,9 +17,19 @@ loadToggleParam();
 /**
  * メッセージ（キーイベント）受信
  *
- * @return {bool}
+ * @returns {boolean}
  */
-chrome.runtime.onMessage.addListener(function (command, sender, response)
+chrome.runtime.onMessage.addListener(function (command, sender, response) {
+  return command(command);
+});
+
+/**
+ * background.js から送信されたコマンド実行
+ *
+ * @param {string} command
+ * @returns {boolean}
+ */
+function command(command)
 {
   switch (command) {
     case 'copy':
@@ -30,15 +40,17 @@ chrome.runtime.onMessage.addListener(function (command, sender, response)
       break;
     case 'toggle':
       toggle();
+      break;
   }
 
-  return true
-});
+  return true;
+}
 
 /**
  * form が存在するかチェックする
  *
- * @returns {bool}
+ * @param {boolean} showAlert
+ * @returns {boolean}
  */
 function isExistForm(showAlert)
 {
@@ -56,17 +68,19 @@ function isExistForm(showAlert)
  * 配列の中に指定した値が存在するかチェックする
  *
  * @param {*} value
- * @returns
+ * @returns {boolean}
  */
 function inArray(value)
 {
-  return [].indexOf.call(disabled, value);
+  return new Boolean(
+    [].indexOf.call(disabled, value)
+  );
 }
 
 /**
  * コピー
  *
- * @returns {bool}
+ * @returns {boolean}
  */
 function copy()
 {
@@ -85,7 +99,7 @@ function copy()
 /**
  * ペースト
  *
- * @return {bool}
+ * @return {boolean}
  */
 function paste()
 {
@@ -94,7 +108,6 @@ function paste()
   }
 
   chrome.storage.local.get([strage], (result) => {
-
     let object = JSON.parse(result.form_value);
 
     Object.keys(object).forEach(function (key) {
@@ -114,18 +127,50 @@ function paste()
  */
 function toggle()
 {
-  const copy_button_a = document.getElementById(`copy_button_a`);
-  const paste_button_a = document.getElementById(`paste_button_a`);
-
-  if (copy_button_a.style.display === 'flex') {
-    copy_button_a.style.display = 'none';
-    paste_button_a.style.display = 'none';
+  if (btnIsShow()) {
+    btnHide();
     saveToggleParam(false);
   } else {
-    copy_button_a.style.display = 'flex';
-    paste_button_a.style.display = 'flex';
+    btnShow();
     saveToggleParam(true);
   }
+}
+
+/**
+ * @returns {boolean}
+ */
+function btnIsShow()
+{
+  const copy_button_a = document.getElementById(`copy_button_a`);
+  return (
+    copy_button_a
+    &&
+    copy_button_a.style.display === 'flex'
+  );
+}
+
+/**
+ * @returns {boolean}
+ */
+function btnHide()
+{
+  const copy_button_a = document.getElementById(`copy_button_a`);
+  const paste_button_a = document.getElementById(`paste_button_a`);
+  copy_button_a.style.display = 'none';
+  paste_button_a.style.display = 'none';
+  return false;
+}
+
+/**
+ * @returns {boolean}
+ */
+function btnShow()
+{
+  const copy_button_a = document.getElementById(`copy_button_a`);
+  const paste_button_a = document.getElementById(`paste_button_a`);
+  copy_button_a.style.display = 'flex';
+  paste_button_a.style.display = 'flex';
+  return true;
 }
 
 /**
@@ -157,7 +202,7 @@ function loadToggleParam()
 /**
  * フォームの値をすべて取得する
  *
- * @return {JSON}
+ * @returns {JSON}
  */
 function serializeArray()
 {
@@ -192,7 +237,7 @@ function serializeArray()
  *
  * @param {string} name
  * @param {string} value
- * @return {bool}
+ * @returns {boolean}
  */
 function setForm(name, value)
 {
@@ -202,7 +247,7 @@ function setForm(name, value)
 /**
  * @param {string} name
  * @param {string} value
- * @return {bool}
+ * @returns {boolean}
  */
 function input(name, value)
 {
@@ -252,9 +297,9 @@ function input(name, value)
 /**
  * @param {string} name
  * @param {string} value
- * @return {bool}
+ * @returns {bool}
  */
- function select(name, value)
+function select(name, value)
 {
   let elem = document.querySelector('select[name=' + name + ']');
   if (elem == null || elem.length <= 0) {
@@ -270,7 +315,7 @@ function input(name, value)
 /**
  * @param {string} name
  * @param {string} value
- * @return {bool}
+ * @returns {boolean}
  */
 function textarea(name, value)
 {
@@ -290,7 +335,7 @@ function textarea(name, value)
  * 対象文字をエスケープする
  *
  * @param {string} name
- * @return {string}
+ * @returns {string}
  */
 function selectorEscape(name)
 {
@@ -305,7 +350,7 @@ function selectorEscape(name)
 function dispatch(elem)
 {
   elem.dispatchEvent(new Event('change'));
-  elem.dispatchEvent(new Event('change'));
+  elem.dispatchEvent(new Event('click'));
   setTimeout(()=>{}, 20);
 }
 
@@ -321,13 +366,15 @@ function displayCopyPasteBtn()
     +
     '<a title="Alt + o" id="paste_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 30px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Paste</div></a>';
 
+  // body 要素の末尾に追加
   body.insertAdjacentHTML("beforeend", html);
 
-  // クリックイベントを追加
-  document.querySelector(`#copy_button_a`).addEventListener('click', function(){
+  // copyクリックイベントを追加
+  document.getElementById(`copy_button_a`).addEventListener('click', function(){
     copy();
   });
-  document.querySelector(`#paste_button_a`).addEventListener('click', function(){
+  // pasteクリックイベントを追加
+  document.getElementById(`paste_button_a`).addEventListener('click', function(){
     paste();
   });
 }
