@@ -13,7 +13,7 @@ if (isExistForm(false)) {
 }
 
 loadToggleParam();
-loadDomainHiddenParam();
+loadHiddenParam();
 
 /**
  * メッセージ（キーイベント）受信
@@ -34,9 +34,6 @@ chrome.runtime.onMessage.addListener(function (command, sender, response)
       break;
     case 'hidden':
       toggleHidden();
-      break;
-    case 'domain':
-      toggleDomain();
       break;
   }
 
@@ -162,15 +159,8 @@ function loadToggleParam()
   });
 }
 
-function loadDomainHiddenParam()
+function loadHiddenParam()
 {
-  chrome.storage.local.get(['domain-checkbox'], (result) => {
-    if (result['domain-checkbox']) {
-      addDomainClass();
-      console.log('loaded this domain-checkbox.');
-    }
-  });
-
   chrome.storage.local.get(['hidden-checkbox'], (result) => {
     if (result['hidden-checkbox']) {
       addHiddenClass();
@@ -334,26 +324,6 @@ function dispatch(elem)
   setTimeout(()=>{}, 20);
 }
 
-function toggleDomain()
-{
-  if (hasDomainClass()) {
-    removeDomainClass();
-  } else {
-    addDomainClass();
-  }
-}
-function hasDomainClass()
-{
-  return document.getElementById('copy_button_a').classList.contains('domain');
-}
-function addDomainClass()
-{
-  document.getElementById('copy_button_a').classList.add('domain');
-}
-function removeDomainClass()
-{
-  document.getElementById('copy_button_a').classList.remove('domain');
-}
 function toggleHidden()
 {
   if (hasHiddenClass()) {
