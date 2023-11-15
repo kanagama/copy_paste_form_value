@@ -1,6 +1,9 @@
 const hiddenName = 'hidden-checkbox';
 
-class HiddenCheckbox
+/**
+ * hidden 対応チェックボックスクラス
+ */
+export class HiddenCheckbox
 {
   /**
    *

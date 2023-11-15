@@ -3,7 +3,7 @@ const toggleBtnName = 'toggle-checkbox';
 /**
  * コピーペーストボタンクラス
  */
-class CopyPasteBtn
+export class CopyPasteBtn
 {
   constructor()
   {

@@ -1,7 +1,11 @@
-const copyPasteBtn = new CopyPasteBtn();
-const hiddenCheckbox = new HiddenCheckbox();
+import { HiddenCheckbox } from './hiddenCheckbox.js';
+import { CopyPasteBtn } from './copyPasteBtn.js';
 
 document.addEventListener('DOMContentLoaded', function() {
+
+  const hiddenCheckbox = new HiddenCheckbox();
+  const copyPasteBtn = new CopyPasteBtn();
+
   // hidden-checkbox のイベント
   document.getElementById(hiddenCheckbox.key()).addEventListener('change', function () {
     hiddenCheckbox.save();
