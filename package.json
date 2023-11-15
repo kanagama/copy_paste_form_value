@@ -10,12 +10,16 @@
         "name": "k-nagama",
         "email": "k.nagama0632@gmail.com"
     },
+    "type": "commonjs",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/kanagama/copy_paste_form_value/issues"
     },
     "homepage": "https://github.com/kanagama/copy_paste_form_value#readme",
     "devDependencies": {
+        "@babel/core": "^7.23.3",
+        "@babel/preset-env": "^7.23.3",
+        "babel-jest": "^29.7.0",
         "eslint": "^8.53.0",
         "eslint-plugin-import": "^2.27.5",
         "eslint-plugin-n": "^15.6.1",
