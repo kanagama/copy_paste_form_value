@@ -1,0 +1,80 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Copy Paste Form Value</title>
+
+  <script type="text/javascript" src="js/copyPasteBtn.js"></script>
+  <script type="text/javascript" src="js/hiddenCheckbox.js"></script>
+  <script type="text/javascript" src="js/domainCheckbox.js"></script>
+  <script type="text/javascript" src="js/popup.js"></script>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body style="width:360px;height:auto;">
+  <div class="m-2 border border-black">
+    <div class="container m-2">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="font-semibold text-center">
+            Copy Paste Form Value
+          </h2>
+        </div>
+      </div>
+
+      <div class="row p-2">
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="hidden-checkbox">
+            <label
+              class="form-check-label"
+              for="hidden-checkbox"
+              title="hidden もコピー・ペースト対象に含まれるようになります"
+            >
+              hidden も対象にする
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-2">
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="domain-checkbox">
+            <label
+              class="form-check-label"
+              for="domain-checkbox"
+              title="ドメイン毎にコピー・ペースト出来るようになります"
+            >
+              ドメイン単位にする
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h2 class="font-semibold text-center">
+            <hr>
+          </h2>
+        </div>
+      </div>
+
+      <div class="row p-2">
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="toggle-checkbox">
+            <label
+              class="form-check-label"
+              for="domain-checkbox"
+              title="画面右下にコピーボタンとペーストボタンが表示されます Alt + P でも制御可能です"
+            >
+              コピー・ペーストボタンを画面右下に表示
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
