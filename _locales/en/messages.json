@@ -1,0 +1,20 @@
+{
+  "extensionName": {
+    "message": "Copy Paste Form Value"
+  },
+  "hiddenOption": {
+    "message": "also target hidden"
+  },
+  "copyPasteBtn": {
+    "message": "Show copy/paste button"
+  },
+  "description": {
+    "message": "Alt + i to copy form values, Alt + o to paste them into a form; Alt + p to show/hide the copy and paste buttons in the lower right corner of the screen."
+  },
+  "copyBtnDescription": {
+    "message": "Copying Form Values"
+  },
+  "pasteBtnDescription": {
+    "message": "Paste the copied values into the Form"
+  }
+}

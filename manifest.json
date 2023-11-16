@@ -2,7 +2,8 @@
   "manifest_version": 3,
   "name": "copy paste form value",
   "version": "1.3.0",
-  "description": "フォームの値を Alt + i でコピー、Alt + o でフォームに貼り付け。Alt + p で画面右下にコピーボタンとペーストボタンを表示・非表示。",
+  "default_locale": "en",
+  "description": "__MSG_description__",
   "icons": {
     "16": "img/icon16.png",
     "48": "img/icon48.png",
@@ -26,19 +27,19 @@
       "suggested_key": {
         "default": "Alt+I"
       },
-      "description": "Form の値を保持する"
+      "description": "__MSG_copyBtnDescription__"
     },
     "paste": {
       "suggested_key": {
         "default": "Alt+O"
       },
-      "description": "保持した値を Form に出力する"
+      "description": "__MSG_pasteBtnDescription__"
     },
     "toggle": {
       "suggested_key": {
         "default": "Alt+P"
       },
-      "description": "ボタン表示する"
+      "description": "__MSG_copyPasteBtn__"
     }
   },
   "permissions": [

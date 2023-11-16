@@ -15,134 +15,25 @@ test('html()で正常に値が取得できる', () => {
   expect(copyPasteBtn.html()).not.toBeNaN();
 });
 
-// /**
-//  *
-//  */
-// test('existForm() - form が存在する場合true', () => {
+test('toggle()でボタンのdisplay設定が変わる', () => {
+  const CopyBtn = document.getElementById('copy_button_a');
+  const PasteBtn = document.getElementById('paste_button_a');
 
-//   expect(js.existForm()).toBe(true);
-// });
+  expect(CopyBtn.style.display).toBe('none');
+  expect(PasteBtn.style.display).toBe('none');
 
-// /**
-//  *
-//  */
-// test('existForm() - form が存在しない場合false', () => {
+  copyPasteBtn.toggle();
 
-//   document.body.innerHTML =
-//     '<div>' +
-//     '  <span id="username" />' +
-//     '  <button id="button" />' +
-//     '</div>';
+  expect(CopyBtn.style.display).toBe('flex');
+  expect(PasteBtn.style.display).toBe('flex');
+});
 
-//   expect(js.existForm()).toBe(false);
-// });
+test('check()でtoggle-checkboxにチェックが入る', () => {
+  const Checkbox = document.getElementById('toggle-checkbox');
 
-// /**
-//  *
-//  */
-// test('getUrlHash() - hash値が正常に取得できる', () => {
-//   // window.location.href に値を格納
-//   global.window = Object.create(window);
-//   Object.defineProperty(window, 'location', {
-//     value: {
-//       href: 'https://098m.com/'
-//     }
-//   });
+  expect(Checkbox.checked).toBe(false);
 
-//   expect(js.getUrlHash()).not.toEqual('');
-// });
+  copyPasteBtn.check();
 
-// /**
-//  *
-//  */
-// test('getFormData() - inputデータが1件以上取得できる', () => {
-
-//   document.body.innerHTML = bodyHtml;
-
-//   expect((Object.keys(js.getFormData()).length > 0)).toBe(true);
-// });
-
-// /**
-//  *
-//  */
-// test('saveForm() - 取得した情報がlocalStorageに保持される', () => {
-
-//   document.body.innerHTML = bodyHtml;
-
-//   expect(js.saveForm()).toBe(true);
-
-//   let storage = localStorage.getItem(js.getUrlHash());
-//   if (storage === null) {
-//     expect('localStorageに保存できていない').toBe(false);
-//     return;
-//   }
-
-//   let json = JSON.parse(storage);
-//   Object.keys(json).forEach(function (key) {
-//     if (key === 'firstName') {
-//       expect(json[key]).toBe('kazumacchi');
-//       return;
-//     }
-//     if (key === 'phone') {
-//       expect(json[key]).toBe('09099999999');
-//       return;
-//     }
-//     if (key === 'sex') {
-//       expect(json[key]).toBe('male');
-//       return;
-//     }
-
-//     expect('localStorageに保存できていない').toBe(false);
-//   });
-// });
-
-// /**
-//  *
-//  */
-// test('setValue(key, value) - input,radio要素に値を代入できる', () => {
-//   document.body.innerHTML = bodyHtml;
-
-//   js.setValue('firstName', 'newKazumacchi');
-//   js.setValue('sex', 'female');
-
-//   expect(document.getElementsByName('firstName')[0].value).toBe('newKazumacchi');
-//   expect(document.getElementsByName('sex')[1].checked).toBe(true);
-// });
-
-// /**
-//  *
-//  */
-// test('loadForm() - input,radio要素に値を代入できる', () => {
-//   document.body.innerHTML = bodyHtml;
-
-//   js.setValue('firstName', 'newKazumacchi');
-//   js.setValue('sex', 'female');
-
-//   expect(document.getElementsByName('firstName')[0].value).toBe('newKazumacchi');
-//   expect(document.getElementsByName('sex')[1].checked).toBe(true);
-// });
-
-// /**
-//  *
-//  */
-// test('formChangeEvent() - changeイベント発火時、localStorageに値が保存される', () => {
-
-//   document.body.innerHTML = bodyHtml;
-
-//   let input = document.getElementsByName('firstName')[0];
-//   input.addEventListener('click', () => {});
-
-//   let storage = localStorage.getItem(js.getUrlHash());
-//   expect((storage === null)).toBe(false);
-// });
-
-// /**
-//  *
-//  */
-// test('clearStorage() - localStorageの値がクリアされる', () => {
-
-//   js.saveForm();
-//   js.clearStorage();
-
-//   expect((js.loadForm())).toBe(false);
-// });
+  expect(Checkbox.checked).toBe(true);
+});

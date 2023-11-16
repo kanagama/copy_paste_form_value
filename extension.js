@@ -18,6 +18,7 @@ const archive = archiver('zip', {
 archive.pipe(output);
 
 // 必要なファイルやディレクトリを追加
+archive.directory('_locales/', '_locales');
 archive.directory('css/', 'css');
 archive.directory('img/', 'img');
 archive.directory('js/', 'js');
