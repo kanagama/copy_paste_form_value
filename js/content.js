@@ -1,5 +1,5 @@
 const strage = 'form_value';
-const toggle_params = 'toggle';
+const toggle_params = 'toggle-checkbox';
 
 const disabled = [
   '_method',
@@ -13,6 +13,7 @@ if (isExistForm(false)) {
 }
 
 loadToggleParam();
+loadHiddenParam();
 
 /**
  * メッセージ（キーイベント）受信
@@ -30,6 +31,10 @@ chrome.runtime.onMessage.addListener(function (command, sender, response)
       break;
     case 'toggle':
       toggle();
+      break;
+    case 'hidden':
+      toggleHidden();
+      break;
   }
 
   return true
@@ -147,10 +152,20 @@ function saveToggleParam(bool)
 function loadToggleParam()
 {
   chrome.storage.local.get([toggle_params], (result) => {
-    if (result.toggle) {
+    if (result[toggle_params]) {
       toggle();
+      console.log('loaded this toggle_params.');
     }
-    console.log('loaded this toggle_params.');
+  });
+}
+
+function loadHiddenParam()
+{
+  chrome.storage.local.get(['hidden-checkbox'], (result) => {
+    if (result['hidden-checkbox']) {
+      addHiddenClass();
+      console.log('loaded this hidden-checkbox.');
+    }
   });
 }
 
@@ -169,7 +184,7 @@ function serializeArray()
   document.querySelector(`form`).querySelectorAll(`input, select, textarea`).forEach(function(element) {
     if (
       // hidden 不要（かも）
-      (element.getAttribute('type') === 'hidden')
+      (element.getAttribute('type') === 'hidden' && !hasHiddenClass())
       ||
       // submit は不要
       (element.getAttribute('type') === 'submit')
@@ -236,7 +251,7 @@ function input(name, value)
 
   elem.forEach(function(element) {
     let type = element.getAttribute('type');
-    if (type === 'hidden') {
+    if (type === 'hidden' && !hasHiddenClass()) {
       return true;
     }
 
@@ -309,6 +324,27 @@ function dispatch(elem)
   setTimeout(()=>{}, 20);
 }
 
+function toggleHidden()
+{
+  if (hasHiddenClass()) {
+    removeHiddenClass();
+  } else {
+    addHiddenClass();
+  }
+}
+function hasHiddenClass()
+{
+  return document.getElementById('paste_button_a').classList.contains('hidden');
+}
+function addHiddenClass()
+{
+  document.getElementById('paste_button_a').classList.add('hidden');
+}
+function removeHiddenClass()
+{
+  document.getElementById('paste_button_a').classList.remove('hidden');
+}
+
 /**
  * コピペボタンを表示する
  */
@@ -317,9 +353,9 @@ function displayCopyPasteBtn()
   const body = document.body;
 
   const html =
-    '<a title="Alt + i" id="copy_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 90px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Copy</div></a>'
+    '<a title="Alt + i" id="copy_button_a" onmousedown="this.style.width=\'46px\';this.style.height=\'46px\';" onmouseup="this.style.width=\'50px\';this.style.height=\'50px\';" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';this.style.width=\'50px\';this.style.height=\'50px\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 90px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Copy</div></a>'
     +
-    '<a title="Alt + o" id="paste_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 30px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Paste</div></a>';
+    '<a title="Alt + o" id="paste_button_a" onmousedown="this.style.width=\'46px\';this.style.height=\'46px\';" onmouseup="this.style.width=\'50px\';this.style.height=\'50px\';" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';this.style.width=\'50px\';this.style.height=\'50px\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 30px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Paste</div></a>';
 
   body.insertAdjacentHTML("beforeend", html);
 
