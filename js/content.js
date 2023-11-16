@@ -1,5 +1,8 @@
-const strage = 'form_value';
-const toggle_params = 'toggle-checkbox';
+import { CopyPasteBtn } from './copyPasteBtn.js';
+
+const copyPasteBtn = new CopyPasteBtn();
+
+const storage = 'form_value';
 
 const disabled = [
   '_method',
@@ -79,7 +82,7 @@ function copy()
     return false;
   }
 
-  const value = { [strage] : serializeArray() };
+  const value = { [storage] : serializeArray() };
   chrome.storage.local.set(value, () => {
     console.log('saved this form.');
   });
@@ -98,9 +101,9 @@ function paste()
     return false;
   }
 
-  chrome.storage.local.get([strage], (result) => {
+  chrome.storage.local.get([storage], (result) => {
 
-    let object = JSON.parse(result.form_value);
+    let object = JSON.parse(result[storage]);
 
     Object.keys(object).forEach(function (key) {
       // 特定の名称でない
@@ -140,9 +143,9 @@ function toggle()
  */
 function saveToggleParam(bool)
 {
-  const value = { [toggle_params] : bool };
+  const value = { [copyPasteBtn.key()] : bool };
   chrome.storage.local.set(value, () => {
-    console.log('saved this toggle_params.');
+    console.log('saved this ' + copyPasteBtn.key() + '.');
   });
 }
 
@@ -151,10 +154,10 @@ function saveToggleParam(bool)
  */
 function loadToggleParam()
 {
-  chrome.storage.local.get([toggle_params], (result) => {
-    if (result[toggle_params]) {
+  chrome.storage.local.get([copyPasteBtn.key()], (result) => {
+    if (result[copyPasteBtn.key()]) {
       toggle();
-      console.log('loaded this toggle_params.');
+      console.log('loaded this ' + copyPasteBtn.key() + '.');
     }
   });
 }
@@ -211,7 +214,13 @@ function serializeArray()
  */
 function setForm(name, value)
 {
-  return (input(name, value) || select(name, value) || textarea(name, value));
+  return (
+    input(name, value)
+    ||
+    select(name, value)
+    ||
+    textarea(name, value)
+  );
 }
 
 /**
@@ -319,8 +328,9 @@ function selectorEscape(name)
  */
 function dispatch(elem)
 {
+  elem.dispatchEvent(new Event('click'));
   elem.dispatchEvent(new Event('change'));
-  elem.dispatchEvent(new Event('change'));
+
   setTimeout(()=>{}, 20);
 }
 
@@ -350,20 +360,13 @@ function removeHiddenClass()
  */
 function displayCopyPasteBtn()
 {
-  const body = document.body;
-
-  const html =
-    '<a title="Alt + i" id="copy_button_a" onmousedown="this.style.width=\'46px\';this.style.height=\'46px\';" onmouseup="this.style.width=\'50px\';this.style.height=\'50px\';" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';this.style.width=\'50px\';this.style.height=\'50px\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 90px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Copy</div></a>'
-    +
-    '<a title="Alt + o" id="paste_button_a" onmousedown="this.style.width=\'46px\';this.style.height=\'46px\';" onmouseup="this.style.width=\'50px\';this.style.height=\'50px\';" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';this.style.width=\'50px\';this.style.height=\'50px\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 30px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Paste</div></a>';
-
-  body.insertAdjacentHTML("beforeend", html);
+  document.body.insertAdjacentHTML("beforeend", copyPasteBtn.html());
 
   // クリックイベントを追加
-  document.querySelector(`#copy_button_a`).addEventListener('click', function(){
+  document.getElementById(`copy_button_a`).addEventListener('click', function(){
     copy();
   });
-  document.querySelector(`#paste_button_a`).addEventListener('click', function(){
+  document.getElementById(`paste_button_a`).addEventListener('click', function(){
     paste();
   });
 }
