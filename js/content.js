@@ -183,11 +183,14 @@ function serializeArray()
   let elements = {};
   document.querySelector(`form`).querySelectorAll(`input, select, textarea`).forEach(function(element) {
     if (
-      // hidden 不要（かも）
+      // hidden 不要（※設定次第では必要）
       (element.getAttribute('type') === 'hidden' && !hasHiddenClass())
       ||
-      // submit は不要
+      // submit ボタンは不要
       (element.getAttribute('type') === 'submit')
+      ||
+      // reset ボタンも不要
+      (element.getAttribute('type') === 'reset')
       ||
       // radio でチェック入ってないのは読み込まない
       (element.getAttribute('type') === 'radio' && element.checked !== true)
