@@ -2,6 +2,12 @@
   "extensionName": {
     "message": "Copy Paste Form Value"
   },
+  "duplicateElement": {
+    "message": "Elements with the same name attribute exist"
+  },
+  "duplicateForm": {
+    "message": "Two or more Forms exist on the screen"
+  },
   "hiddenOption": {
     "message": "also target hidden"
   },
