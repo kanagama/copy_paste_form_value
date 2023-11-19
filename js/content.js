@@ -1,4 +1,4 @@
-const strage = 'form_value';
+const storage = 'form_value';
 const toggle_params = 'toggle-checkbox';
 
 const disabled = [
@@ -20,7 +20,7 @@ loadHiddenParam();
  *
  * @return {bool}
  */
-chrome.runtime.onMessage.addListener(function (command, sender, response)
+chrome.runtime.onMessage.addListener(function (command)
 {
   switch (command) {
     case 'copy':
@@ -79,7 +79,7 @@ function copy()
     return false;
   }
 
-  const value = { [strage] : serializeArray() };
+  const value = { [storage] : serializeArray() };
   chrome.storage.local.set(value, () => {
     console.log('saved this form.');
   });
@@ -98,7 +98,12 @@ function paste()
     return false;
   }
 
-  chrome.storage.local.get([strage], (result) => {
+  chrome.storage.local.get([storage], (result) => {
+    if (!result.hasOwnProperty(storage)) {
+      // TODO エラーメッセージ
+      console.log('copy data not exists.');
+      return false;
+    }
 
     let object = JSON.parse(result.form_value);
 

@@ -2,7 +2,7 @@
  * キークリックイベントを取得
  */
 chrome.commands.onCommand.addListener((command) => {
-  const p1 = new Promise((resolve, reject) => {
+  const p1 = new Promise((resolve) => {
     // アクティブタブの id を取得
     chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, tabs => {
       console.log(tabs[0].id);
