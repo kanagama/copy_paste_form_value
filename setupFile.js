@@ -9,5 +9,10 @@ global.chrome = {
           callback();
         })
       }
+    },
+    runtime: {
+      getManifest: jest.fn((key, callback) => {
+        return { version: '1.3.0' };
+      })
     }
 };

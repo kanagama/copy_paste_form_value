@@ -26,6 +26,7 @@ archive.file('background.js', { name: 'background.js' });
 archive.file('LICENSE', { name: 'LICENSE' });
 archive.file('manifest.json', { name: 'manifest.json' });
 archive.file('popup.html', { name: 'popup.html' });
+archive.file('README.md', { name: 'README.md' });
 
 // アーカイブを完了
 archive.finalize();

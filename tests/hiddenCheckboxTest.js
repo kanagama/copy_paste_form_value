@@ -1,4 +1,3 @@
-import { TestEnvironment } from 'jest-environment-jsdom';
 import { HiddenCheckbox } from '../js/hiddenCheckbox.js';
 
 const fs = require('fs')
