@@ -1,12 +1,9 @@
-let queryOptions = {
-  active: true,
-  currentWindow: true
-};
-
-// キークリックイベントを取得
+/**
+ * キークリックイベントを取得
+ */
 chrome.commands.onCommand.addListener((command) => {
-  // アクティブタブの id を取得
   const p1 = new Promise((resolve, reject) => {
+    // アクティブタブの id を取得
     chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, tabs => {
       console.log(tabs[0].id);
       resolve(tabs[0].id);

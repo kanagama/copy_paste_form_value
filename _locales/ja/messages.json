@@ -1,0 +1,26 @@
+{
+  "extensionName": {
+    "message": "Copy Paste Form Value"
+  },
+  "duplicateElement": {
+    "message": "同じname属性を持った要素が存在しています"
+  },
+  "duplicateForm": {
+    "message": "画面上にFormが2つ以上存在しています"
+  },
+  "hiddenOption": {
+    "message": "hidden も対象にする"
+  },
+  "copyPasteBtn": {
+    "message": "コピー・ペーストボタンを画面右下に表示"
+  },
+  "description": {
+    "message": "フォームの値を Alt + i でコピー、Alt + o でフォームに貼り付け。Alt + p で画面右下にコピーボタンとペーストボタンを表示・非表示。"
+  },
+  "copyBtnDescription": {
+    "message": "Form の値をコピーする"
+  },
+  "pasteBtnDescription": {
+    "message": "Form にコピーした値をペーストする"
+  }
+}

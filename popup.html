@@ -4,6 +4,7 @@
   <title>Copy Paste Form Value</title>
 
   <script type="module" src="js/popup.js"></script>
+  <script type="module" src="js/locale.js"></script>
 
   <link href="css/bootstrap.min.css" rel="stylesheet" />
 </head>
@@ -14,12 +15,12 @@
       <div class="row m-2">
         <div class="col-12">
           <h2 class="font-semibold text-center">
-            Copy Paste Form Value
+            <span id="extensionName">&nbsp;</span>
           </h2>
         </div>
 
         <div style="text-align:right;">
-          v1.3.0
+          v<span id="version">&nbsp;</span>
         </div>
       </div>
 
@@ -30,9 +31,9 @@
             <label
               class="form-check-label"
               for="hidden-checkbox"
-              title="hidden もコピー・ペースト対象に含まれるようになります"
+              title="hidden is now also included in the copy/paste target"
             >
-              &nbsp;hidden も対象にする
+              &nbsp;<span id="hiddenOption">&nbsp;</span>
             </label>
           </div>
         </div>
@@ -53,9 +54,9 @@
             <label
               class="form-check-label"
               for="toggle-checkbox"
-              title="画面右下にコピーボタンとペーストボタンが表示されます Alt + P でも制御可能です"
+              title="Copy and Paste buttons appear in the lower right corner of the screen, also controlled by Alt + P"
             >
-              &nbsp;コピー・ペーストボタンを画面右下に表示
+              &nbsp;<span id="copyPasteBtn">&nbsp;</span>
             </label>
           </div>
         </div>
