@@ -2,7 +2,7 @@
 global.chrome = {
     storage: {
       local: {
-        get: jest.fn((key, callback) => {
+        get: jest.fn(() => {
           return { key: 'mocked value' };
         }),
         set: jest.fn(() => {
