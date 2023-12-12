@@ -1,5 +1,5 @@
 {
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "Form の値をコピー・ペーストできるようにする chrome 拡張機能",
     "scripts": {
         "zip": "node extension.js",

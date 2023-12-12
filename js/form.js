@@ -36,7 +36,17 @@ export class Form
   checkFormCount()
   {
     return (
-      document.getElementsByTagName('form').length === 1
+      this.getFormCount() == 1
     );
+  }
+
+  /**
+   * 画面上のフォーム数を取得
+   *
+   * @returns {Number}
+   */
+  getFormCount()
+  {
+    return document.getElementsByTagName('form').length;
   }
 }
