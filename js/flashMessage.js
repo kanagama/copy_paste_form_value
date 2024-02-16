@@ -16,7 +16,7 @@ export class FlashMessage
                 + 'top: 0;'
                 + 'left: 50%;'
                 + 'transform: translateX(-50%);'
-                + 'z-index: 1000;'
+                + 'z-index: calc(infinity);'
                 + 'background-color: #f44336;'
                 + 'color: white;'
                 + 'padding: 10px 20px;'

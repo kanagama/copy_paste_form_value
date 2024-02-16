@@ -26,9 +26,9 @@ export class CopyPasteBtn
   html()
   {
     const html =
-      '<a title="Alt + i" id="copy_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 90px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Copy</div></a>'
+      '<a title="Alt + i" id="copy_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 90px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: calc(infinity);box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Copy</div></a>'
       +
-      '<a title="Alt + o" id="paste_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 30px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: 2;box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Paste</div></a>';
+      '<a title="Alt + o" id="paste_button_a" onMouseOver="this.style.border=\'solid 2px #3293e7\';this.style.color=\'#3293e7\';" onMouseOut="this.style.border=\'solid 2px #000\';this.style.color=\'#000\';" style="display:none;border:solid 2px #000;font-weight:bold;transition: none!important;height: 50px;width: 50px;position: fixed;right: 30px;bottom: 30px;border: solid 2px #000;border-radius: 50%;justify-content: center;align-items: center;z-index: calc(infinity);box-shadow: 0 4px 6px rgb(0 0 0 / 30%);"><div>Paste</div></a>';
 
     return html;
   }
