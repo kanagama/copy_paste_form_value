@@ -35,9 +35,11 @@ chrome.runtime.onMessage.addListener(function (command)
     case 'hidden':
       toggleHidden();
       break;
+    case 'message':
+      break;
   }
 
-  return true
+  return true;
 });
 
 /**
@@ -225,7 +227,7 @@ function setForm(name, value)
 /**
  * @param {string} name
  * @param {string} value
- * @return {bool}
+ * @returns {boolean}
  */
 function input(name, value)
 {
@@ -275,7 +277,7 @@ function input(name, value)
 /**
  * @param {string} name
  * @param {string} value
- * @return {bool}
+ * @returns {boolean}
  */
  function select(name, value)
 {
@@ -293,7 +295,7 @@ function input(name, value)
 /**
  * @param {string} name
  * @param {string} value
- * @return {bool}
+ * @returns {boolean}
  */
 function textarea(name, value)
 {

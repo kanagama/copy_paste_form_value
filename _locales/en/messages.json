@@ -11,8 +11,20 @@
   "hiddenOption": {
     "message": "also target hidden"
   },
+  "hiddenOptionLabel": {
+    "message": "hidden is now also included in the copy/paste target"
+  },
   "copyPasteBtn": {
     "message": "Show copy/paste button"
+  },
+  "copyPasteBtnLabel": {
+    "message": "Copy and Paste buttons appear in the lower right corner of the screen, also controlled by Alt + P"
+  },
+  "flashMessage": {
+    "message": "Display error messages"
+  },
+  "flashMessageLabel": {
+    "message": "If a form exists that cannot be copied and pasted, a message is displayed. also controlled by Alt + M"
   },
   "description": {
     "message": "Alt + i to copy form values, Alt + o to paste them into a form; Alt + p to show/hide the copy and paste buttons."

@@ -1,9 +1,7 @@
 /**
- * hidden 対応チェックボックスクラス
- *
- * @test
+ * フラッシュメッセージチェックボックスクラス（エラー通知）
  */
-export class HiddenCheckbox
+export class FlashMessageCheckbox
 {
   /**
    *
@@ -20,7 +18,7 @@ export class HiddenCheckbox
    */
   key()
   {
-    return 'hidden-checkbox';
+    return 'message-checkbox';
   }
 
   /**
@@ -60,12 +58,14 @@ export class HiddenCheckbox
 
   /**
    * toggle の値を localStorage に保存する
+   *
+   * @param {boolean} bool
    */
   save()
   {
     const value = { [this.key()] : this.has() };
     chrome.storage.local.set(value, () => {
-      console.log('Stored ' + this.key() + ' name: ' + this.has());
+      console.log('saved this ' + this.key() + '.');
     });
   }
 

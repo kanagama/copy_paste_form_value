@@ -9,10 +9,22 @@
     "message": "画面上にFormが2つ以上存在しています"
   },
   "hiddenOption": {
-    "message": "hidden も対象にする"
+    "message": "hidden もコピー・ペーストの対象"
+  },
+  "hiddenOptionLabel": {
+    "message": "hidden 要素もコピー・ペーストの対象とします"
   },
   "copyPasteBtn": {
     "message": "コピー・ペーストボタンを画面右下に表示"
+  },
+  "copyPasteBtnLabel": {
+    "message": "コピー・ペーストボタンを画面右下に表示します。Alt + P でも制御できます"
+  },
+  "flashMessage": {
+    "message": "エラーメッセージを表示"
+  },
+  "flashMessageLabel": {
+    "message": "コピー・ペーストできないフォームの場合、エラーメッセージを表示します。Alt + M でも制御できます"
   },
   "description": {
     "message": "フォームの値を Alt + i でコピー、Alt + o でフォームに貼り付け。Alt + p で画面右下にコピーボタンとペーストボタンを表示・非表示。"

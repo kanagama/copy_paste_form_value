@@ -29,6 +29,7 @@
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="hidden-checkbox">
             <label
+              id="hiddenOptionLabel"
               class="form-check-label"
               for="hidden-checkbox"
               title="hidden is now also included in the copy/paste target"
@@ -52,11 +53,28 @@
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" role="switch" id="toggle-checkbox">
             <label
+              id="copyPasteBtnLabel"
               class="form-check-label"
               for="toggle-checkbox"
               title="Copy and Paste buttons appear in the lower right corner of the screen, also controlled by Alt + P"
             >
               &nbsp;<span id="copyPasteBtn">&nbsp;</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-2">
+        <div class="col-12">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="message-checkbox">
+            <label
+              id="flashMessageLabel"
+              class="form-check-label"
+              for="message-checkbox"
+              title="If a form exists that cannot be copied and pasted, a message is displayed. also controlled by Alt + M"
+            >
+              &nbsp;<span id="flashMessage">&nbsp;</span>
             </label>
           </div>
         </div>
@@ -67,7 +85,7 @@
             <br>
           </div>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 </body>

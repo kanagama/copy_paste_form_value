@@ -1,9 +1,7 @@
 /**
- * hidden 対応チェックボックスクラス
- *
- * @test
+ * コピーペーストチェックボックスクラス
  */
-export class HiddenCheckbox
+export class CopyPasteCheckbox
 {
   /**
    *
@@ -15,12 +13,10 @@ export class HiddenCheckbox
 
   /**
    * キー名称を取得
-   *
-   * @returns {string}
    */
   key()
   {
-    return 'hidden-checkbox';
+    return 'toggle-checkbox';
   }
 
   /**
@@ -30,7 +26,7 @@ export class HiddenCheckbox
    */
   element()
   {
-    return document.getElementById(this.key());
+    return document.getElementById(this.key())
   }
 
   /**
@@ -44,7 +40,7 @@ export class HiddenCheckbox
   }
 
   /**
-   * toggle の値を localStorage から呼び出す
+   * style.display 情報を取得
    */
   load()
   {
@@ -65,7 +61,7 @@ export class HiddenCheckbox
   {
     const value = { [this.key()] : this.has() };
     chrome.storage.local.set(value, () => {
-      console.log('Stored ' + this.key() + ' name: ' + this.has());
+      console.log('saved this ' + this.key() + '.');
     });
   }
 
