@@ -40,6 +40,12 @@
         "default": "Alt+P"
       },
       "description": "__MSG_copyPasteBtn__"
+    },
+    "message": {
+      "suggested_key": {
+        "default": "Alt+M"
+      },
+      "description": "__MSG_flashMessage__"
     }
   },
   "permissions": [

@@ -1,19 +1,19 @@
-import { flashMessageCheckbox } from './flashMessageCheckbox.js';
-
+import { Constants } from "../const.js";
+import { Form } from "./form.js";
 
 /**
  * Flashメッセージクラス（エラー通知）
  */
 export class FlashMessage
 {
-  #flashMessageCheckbox;
+  #form;
 
   /**
    *
    */
   constructor()
   {
-    this.#flashMessageCheckbox = new flashMessageCheckbox();
+    this.#form = new Form();
 
     this.load();
   }
@@ -23,7 +23,7 @@ export class FlashMessage
    */
   key()
   {
-    return 'copy-paste-form-value-error-message';
+    return Constants.FlashMessageId;
   }
 
   /**
@@ -41,6 +41,11 @@ export class FlashMessage
    */
   load()
   {
+    // 既に要素が存在している、もしくはフォームが1件でなければ終了
+    if (this.element() || !this.#form.checkFormCount()) {
+      return;
+    }
+
     document.body.insertAdjacentHTML("beforeend", this.html());
   }
 
@@ -77,7 +82,8 @@ export class FlashMessage
    */
   html()
   {
-    return '<div '
+    return ''
+      + '<div '
         + ' id="' + this.key() + '"'
         + ' style="'
           + ' position: fixed;'

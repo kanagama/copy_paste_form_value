@@ -1,3 +1,5 @@
+import { Constants } from "./const.js";
+
 /**
  * hidden 対応チェックボックスクラス
  *
@@ -20,7 +22,7 @@ export class HiddenCheckbox
    */
   key()
   {
-    return 'hidden-checkbox';
+    return Constants.HiddenCheckboxId;
   }
 
   /**

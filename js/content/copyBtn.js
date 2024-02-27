@@ -1,4 +1,5 @@
-import { CopyPasteCheckbox } from "./copyPasteCheckbox";
+import { Constants } from "../const.js";
+import { CopyPasteCheckbox } from "../copyPasteCheckbox.js";
 import { Form } from "./form.js";
 
 /**
@@ -29,7 +30,7 @@ export class CopyBtn
    */
   key()
   {
-    return 'copy_button_a';
+    return Constants.CopyBtnId;
   }
 
   /**
@@ -47,6 +48,11 @@ export class CopyBtn
    */
   load()
   {
+    // 既に要素が存在している、もしくはフォームが1件でなければ終了
+    if (this.element() || !this.#form.checkFormCount()) {
+      return;
+    }
+
     document.body.insertAdjacentHTML("beforeend", this.html());
 
     // クリックイベントを追加

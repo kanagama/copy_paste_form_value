@@ -1,3 +1,5 @@
+import { Constants } from "./const.js";
+
 /**
  * フラッシュメッセージチェックボックスクラス（エラー通知）
  */
@@ -18,7 +20,7 @@ export class FlashMessageCheckbox
    */
   key()
   {
-    return 'message-checkbox';
+    return Constants.FlashMessageCheckboxId;
   }
 
   /**

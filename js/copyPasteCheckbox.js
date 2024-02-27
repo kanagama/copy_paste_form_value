@@ -1,3 +1,5 @@
+import { Constants } from "./const.js";
+
 /**
  * コピーペーストチェックボックスクラス
  */
@@ -16,7 +18,7 @@ export class CopyPasteCheckbox
    */
   key()
   {
-    return 'toggle-checkbox';
+    return Constants.CopyPasteCheckboxId;
   }
 
   /**

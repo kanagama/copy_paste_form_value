@@ -1,4 +1,5 @@
-import { CopyPasteCheckbox } from "./copyPasteCheckbox";
+import { Constants } from "../const.js";
+import { CopyPasteCheckbox } from "../copyPasteCheckbox.js";
 import { Form } from "./form.js";
 
 /**
@@ -27,7 +28,7 @@ export class PasteBtn
    */
   key()
   {
-    return 'paste_button_a';
+    return Constants.PasteBtnId;
   }
 
   /**
@@ -43,6 +44,11 @@ export class PasteBtn
    */
   load()
   {
+    // 既に要素が存在している、もしくはフォームが1件でなければ終了
+    if (this.element() || !this.#form.checkFormCount()) {
+      return;
+    }
+
     document.body.insertAdjacentHTML("beforeend", this.html());
 
     // クリックイベントを追加
@@ -51,6 +57,9 @@ export class PasteBtn
     });
   }
 
+  /**
+   * ボタンの表示・非表示を切り替える
+   */
   toggle()
   {
     chrome.storage.local.get([this.#copyPasteCheckbox.key()], (result) => {
@@ -64,7 +73,7 @@ export class PasteBtn
   }
 
   /**
-   * 表示
+   * ボタン表示
    */
   show()
   {
@@ -72,7 +81,7 @@ export class PasteBtn
   }
 
   /**
-   * 非表示
+   * ボタン非表示
    */
   hide()
   {
