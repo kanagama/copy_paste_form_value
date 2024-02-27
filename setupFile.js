@@ -11,7 +11,7 @@ global.chrome = {
     },
     runtime: {
       getManifest: jest.fn(() => {
-        return { version: '1.3.0' };
+        return { version: '1.5.0' };
       })
     }
 };
