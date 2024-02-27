@@ -1,4 +1,4 @@
-import { Constants } from "./const.js";
+import Constants from "./const.js";
 
 /**
  * フラッシュメッセージチェックボックスクラス（エラー通知）

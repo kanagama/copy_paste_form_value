@@ -11,4 +11,4 @@ const Constants = Object.freeze({
     PasteBtnId: 'paste_button_a',
 });
 
-export { Constants };
+export default Constants;

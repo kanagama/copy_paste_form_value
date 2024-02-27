@@ -3,7 +3,7 @@
     "description": "Form の値をコピー・ペーストできるようにする chrome 拡張機能",
     "scripts": {
         "zip": "node extension.js",
-        "build": "vite build",
+        "build": "vite build --debug",
         "test": "jest --env=jsdom"
     },
     "author": {
