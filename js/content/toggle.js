@@ -1,4 +1,4 @@
-import { Constants } from "../const.js";
+import Constants from "../const.js";
 import { CopyBtn } from "./copyBtn.js";
 import { PasteBtn } from "./pasteBtn.js";
 import { Form } from "./form.js";

@@ -1,4 +1,4 @@
-import { Constants } from "../const.js";
+import Constants from "../const.js";
 import { Form } from "./form.js";
 
 /**
@@ -99,7 +99,10 @@ export class FlashMessage
           + ' box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);'
           + ' text-align: center;'
           + ' font-size: 16px;'
+          + ' display: none;'
+          + ' opacity: 0.8;'
+          + ' font-weight: bold;'
         + '"'
-      + '></div>';
+      + '>copy paste form value - Error</div>';
   }
 }

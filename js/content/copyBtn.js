@@ -1,5 +1,4 @@
-import { Constants } from "../const.js";
-import { CopyPasteCheckbox } from "../copyPasteCheckbox.js";
+import Constants from "../const.js";
 import { Form } from "./form.js";
 
 /**
@@ -7,8 +6,6 @@ import { Form } from "./form.js";
  */
 export class CopyBtn
 {
-  #copyPasteCheckbox;
-
   #form;
 
   /**
@@ -16,7 +13,6 @@ export class CopyBtn
    */
   constructor()
   {
-    this.#copyPasteCheckbox = new CopyPasteCheckbox();
     this.#form = new Form();
 
     this.load();
@@ -63,9 +59,9 @@ export class CopyBtn
 
   toggle()
   {
-    chrome.storage.local.get([this.#copyPasteCheckbox.key()], (result) => {
+    chrome.storage.local.get([Constants.CopyPasteCheckboxId], (result) => {
       this.hide();
-      if (result[this.#copyPasteCheckbox.key()]) {
+      if (result[Constants.CopyPasteCheckboxId]) {
         this.show();
       }
 
