@@ -31,7 +31,6 @@ export class MessageClass
       const toggle = !result[Constants.FlashMessageCheckboxId];
       const value = { [Constants.FlashMessageCheckboxId] : toggle };
       chrome.storage.local.set(value, () => {
-        console.log(3);
         console.log('saved this ' + Constants.FlashMessageCheckboxId + '.');
       });
 

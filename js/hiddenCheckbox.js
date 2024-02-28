@@ -57,11 +57,22 @@ export class HiddenCheckbox
     this.unchecked();
 
     chrome.storage.local.get([this.key()], (result) => {
-      if (result[this.key()]) {
-        this.checked();
-      }
-      console.log('loaded this ' + this.key() + '.');
+      this.loaded(Boolean(result[this.key()]));
     });
+  }
+
+  /**
+   * 読み込み完了処理
+   *
+   * @param {Boolean} result
+   */
+  loaded(result)
+  {
+    if (result) {
+      this.checked();
+    }
+
+    console.log('loaded this ' + this.key() + '.');
   }
 
   /**
