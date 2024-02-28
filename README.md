@@ -17,6 +17,10 @@ Alt + o
 
 Alt + p
 
+## エラーメッセージを表示する Display error messages
+
+Alt + M
+
 # 注意事項
 
 hidden はコピー・ペーストを行えません（※設定から変更できます）

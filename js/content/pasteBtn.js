@@ -115,17 +115,19 @@ export class PasteBtn
 
   /**
    * ペースト処理
+   *
+   * @returns {boolean}
    */
   clickEvent()
   {
     if (!this.#hasForm.checkFormCount()) {
-      console.log('form not exists.');
+      console.log('form not exists. clickEvent');
       return false;
     }
 
     chrome.storage.local.get([this.#form.storageName()], (result) => {
       if (!result.hasOwnProperty(this.#form.storageName())) {
-        console.log('copy data not exists.');
+        console.log('copy data not exists. clickEvent');
         return false;
       }
 

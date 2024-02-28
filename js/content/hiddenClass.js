@@ -1,5 +1,4 @@
 import Constants from "../const.js";
-import HasForm from "./hasForm.js";
 import { Status } from "./status.js";
 
 /**
@@ -7,7 +6,6 @@ import { Status } from "./status.js";
  */
 export class HiddenClass
 {
-  #hasForm;
   #status;
 
   /**
@@ -15,7 +13,6 @@ export class HiddenClass
    */
   constructor()
   {
-    this.#hasForm = new HasForm();
     this.#status = new Status();
   }
 

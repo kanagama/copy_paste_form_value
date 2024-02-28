@@ -1,7 +1,6 @@
 import Constants from "../const.js";
 import { CopyBtn } from "./copyBtn.js";
 import { PasteBtn } from "./pasteBtn.js";
-import HasForm from "./hasForm.js";
 
 /**
  *
@@ -10,7 +9,6 @@ export class Toggle
 {
   #copyBtn;
   #pasteBtn;
-  #hasForm;
 
   /**
    *
@@ -19,7 +17,6 @@ export class Toggle
   {
     this.#copyBtn = new CopyBtn();
     this.#pasteBtn = new PasteBtn();
-    this.#hasForm = new HasForm();
   }
 
   /**

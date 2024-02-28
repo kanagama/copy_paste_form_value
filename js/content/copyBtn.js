@@ -60,6 +60,9 @@ export class CopyBtn
     });
   }
 
+  /**
+   * ボタンの表示・非表示を切り替える
+   */
   toggle()
   {
     chrome.storage.local.get([Constants.CopyPasteCheckboxId], (result) => {
@@ -117,13 +120,13 @@ export class CopyBtn
   clickEvent()
   {
     if (!this.#hasForm.checkFormCount()) {
-      console.log('form not exists.');
+      console.log('form not exists. clickEvent');
       return false;
     }
 
     const value = { [this.#form.storageName()] : this.#form.serializeArray() };
     chrome.storage.local.set(value, () => {
-      console.log('saved this form.');
+      console.log('saved this form. clickEvent');
     });
 
     return true;

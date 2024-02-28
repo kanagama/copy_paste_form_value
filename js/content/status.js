@@ -1,20 +1,15 @@
 import Constants from "../const.js";
-import HasForm from "./hasForm.js";
 
 /**
  * ステータスを保存するためのdiv要素クラス
  */
 export class Status
 {
-  #hasForm;
-
   /**
    *
    */
   constructor()
   {
-    this.#hasForm = new HasForm();
-
     this.load();
   }
 
