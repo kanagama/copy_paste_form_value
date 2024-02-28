@@ -159,9 +159,11 @@ export class Form
     elem.forEach((element) => {
       let type = element.getAttribute('type');
       if (type === 'hidden' && !this.hasHiddenClass()) {
+        console.log('hidden is not copied.');
         return true;
       }
 
+      element.value = value;
       this.dispatch(element);
       return false;
     });
@@ -178,10 +180,13 @@ export class Form
   {
     let elem = document.querySelector('select[name=' + name + ']');
     if (elem == null || elem.length <= 0) {
+      console.log('textarea not found.');
       return false;
     }
 
+    elem.value = value;
     this.dispatch(elem);
+
     return true;
   }
 
@@ -198,8 +203,8 @@ export class Form
     }
 
     elem.value = value;
-
     this.dispatch(elem);
+
     return true;
   }
 
