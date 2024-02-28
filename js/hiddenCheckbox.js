@@ -42,6 +42,10 @@ export class HiddenCheckbox
    */
   has()
   {
+    if (!this.element()) {
+      return false;
+    }
+
     return this.element().checked;
   }
 
@@ -65,6 +69,10 @@ export class HiddenCheckbox
    */
   checked()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().checked = true;
   }
 
@@ -73,6 +81,10 @@ export class HiddenCheckbox
    */
   unchecked()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().checked = false;
   }
 }

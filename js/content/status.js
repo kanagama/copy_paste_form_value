@@ -41,8 +41,8 @@ export class Status
    */
   load()
   {
-    // 既に要素が存在している、もしくはフォームが1件でなければ終了
-    if (this.element() || !this.#hasForm.checkFormCount()) {
+    // 既に要素が存在している
+    if (this.element()) {
       return;
     }
 

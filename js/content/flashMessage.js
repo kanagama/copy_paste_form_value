@@ -14,8 +14,6 @@ export class FlashMessage
   constructor()
   {
     this.#hasForm = new HasForm();
-
-    this.load();
   }
 
   /**
@@ -41,12 +39,18 @@ export class FlashMessage
    */
   load()
   {
-    // 既に要素が存在している、もしくはフォームが1件でなければ終了
-    if (this.element() || !this.#hasForm.checkFormCount()) {
+    // 既に要素が存在しているまたはフォームが存在している
+    if (this.element() || this.#hasForm.checkFormCount()) {
       return;
     }
 
-    document.body.insertAdjacentHTML("beforeend", this.html());
+    // 表示ONであれば表示する
+    chrome.storage.local.get([Constants.FlashMessageCheckboxId], (result) => {
+      if (result[Constants.FlashMessageCheckboxId]) {
+        document.body.insertAdjacentHTML("beforeend", this.html());
+        this.hide();
+      }
+    });
   }
 
   /**
@@ -56,7 +60,9 @@ export class FlashMessage
    */
   has()
   {
-    return this.element().style.display === 'flex';
+    return (
+      this.element()
+    );
   }
 
   /**
@@ -64,15 +70,50 @@ export class FlashMessage
    */
   show()
   {
-    this.element().style.display = 'flex';
+    // 既に表示されていたら何もしない
+    if (this.has()) {
+      return;
+    }
+
+    this.load();
   }
 
   /**
-   * 非表示
+   * 2秒後から徐々に非表示
    */
   hide()
   {
-    this.element().style.display = 'hide';
+    if (!this.element()) {
+      return;
+    }
+
+    setTimeout(() => {
+      // 2秒後に既にない場合は実行しない
+      if (!this.element()) {
+        return;
+      }
+
+      const duration = 1000;
+      const interval = 100;
+
+      let op = this.element().style.opacity;
+      let decrement = op / (duration / interval);
+
+      let fade = setInterval(() => {
+        if (!this.element()) {
+          clearInterval(fade);
+          return;
+        }
+
+        this.element().style.opacity = op;
+        op -= decrement;
+
+        if (op <= 0) {
+          clearInterval(fade);
+          this.element().parentNode.removeChild(this.element());
+        }
+      }, interval);
+    }, 2000);
   }
 
   /**
@@ -87,7 +128,7 @@ export class FlashMessage
         + ' id="' + this.key() + '"'
         + ' style="'
           + ' position: fixed;'
-          + ' top: 0;'
+          + ' bottom: 0%;'
           + ' left: 50%;'
           + ' transform: translateX(-50%);'
           + ' z-index: calc(infinity);'
@@ -99,10 +140,10 @@ export class FlashMessage
           + ' box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);'
           + ' text-align: center;'
           + ' font-size: 16px;'
-          + ' display: none;'
+          + ' display: flex;'
           + ' opacity: 0.8;'
           + ' font-weight: bold;'
         + '"'
-      + '>copy paste form value - Error</div>';
+      + '>Copy Paste Form Value - Error</div>';
   }
 }

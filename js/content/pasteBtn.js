@@ -61,8 +61,9 @@ export class PasteBtn
    */
   toggle()
   {
+    this.hide();
+
     chrome.storage.local.get([Constants.CopyPasteCheckboxId], (result) => {
-      this.hide();
       if (result[Constants.CopyPasteCheckboxId]) {
         this.show();
       }
@@ -76,6 +77,10 @@ export class PasteBtn
    */
   show()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().style.display = 'flex';
   }
 
@@ -84,6 +89,10 @@ export class PasteBtn
    */
   hide()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().style.display = 'none';
   }
 

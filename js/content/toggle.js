@@ -29,11 +29,6 @@ export class Toggle
    */
   toggle()
   {
-    if (!this.#hasForm.checkFormCount()) {
-      console.log('form not exists.');
-      return false;
-    }
-
     chrome.storage.local.get([Constants.CopyPasteCheckboxId], (result) => {
       // 値を反転させる
       const toggle = !result[Constants.CopyPasteCheckboxId];

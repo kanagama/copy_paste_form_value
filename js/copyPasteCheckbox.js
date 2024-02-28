@@ -38,6 +38,10 @@ export class CopyPasteCheckbox
    */
   has()
   {
+    if (!this.element()) {
+      return false;
+    }
+
     return this.element().checked;
   }
 
@@ -61,6 +65,10 @@ export class CopyPasteCheckbox
    */
   checked()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().checked = true;
   }
 
@@ -69,6 +77,10 @@ export class CopyPasteCheckbox
    */
   unchecked()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().checked = false;
   }
 }

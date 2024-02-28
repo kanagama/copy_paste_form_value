@@ -77,6 +77,10 @@ export class CopyBtn
    */
   show()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().style.display = 'flex';
   }
 
@@ -85,6 +89,10 @@ export class CopyBtn
    */
   hide()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().style.display = 'none';
   }
 

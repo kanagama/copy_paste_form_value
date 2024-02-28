@@ -26,11 +26,6 @@ export class HiddenClass
    */
   toggle()
   {
-    if (!this.#hasForm.checkFormCount()) {
-      console.log('form not exists.');
-      return false;
-    }
-
     chrome.storage.local.get([Constants.HiddenCheckboxId], (result) => {
       // 値を反転させる
       const toggle = !result[Constants.HiddenCheckboxId];

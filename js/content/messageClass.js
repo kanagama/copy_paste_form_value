@@ -26,24 +26,19 @@ export class MessageClass
    */
   toggle()
   {
-    if (!this.#hasForm.checkFormCount()) {
-      console.log('form not exists.');
-      return false;
-    }
-
     chrome.storage.local.get([Constants.FlashMessageCheckboxId], (result) => {
       // 値を反転させる
       const toggle = !result[Constants.FlashMessageCheckboxId];
+      const value = { [Constants.FlashMessageCheckboxId] : toggle };
+      chrome.storage.local.set(value, () => {
+        console.log(3);
+        console.log('saved this ' + Constants.FlashMessageCheckboxId + '.');
+      });
 
       this.#status.removeMessage();
       if (toggle) {
         this.#status.addMessage();
       }
-
-      const value = { [Constants.FlashMessageCheckboxId] : toggle };
-      chrome.storage.local.set(value, () => {
-        console.log('saved this ' + Constants.FlashMessageCheckboxId + '.');
-      });
     });
 
     return true;

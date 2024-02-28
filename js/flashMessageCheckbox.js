@@ -40,6 +40,10 @@ export class FlashMessageCheckbox
    */
   has()
   {
+    if (!this.element()) {
+      return false;
+    }
+
     return this.element().checked;
   }
 
@@ -63,6 +67,10 @@ export class FlashMessageCheckbox
    */
   checked()
   {
+    if (!this.element()) {
+      return;
+    }
+
     this.element().checked = true;
   }
 
