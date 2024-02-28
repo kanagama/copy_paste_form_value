@@ -1,7 +1,7 @@
 import Constants from "../const.js";
 import { CopyBtn } from "./copyBtn.js";
 import { PasteBtn } from "./pasteBtn.js";
-import { Form } from "./form.js";
+import HasForm from "./hasForm.js";
 
 /**
  *
@@ -10,7 +10,7 @@ export class Toggle
 {
   #copyBtn;
   #pasteBtn;
-  #form;
+  #hasForm;
 
   /**
    *
@@ -19,7 +19,7 @@ export class Toggle
   {
     this.#copyBtn = new CopyBtn();
     this.#pasteBtn = new PasteBtn();
-    this.#form = new Form();
+    this.#hasForm = new HasForm();
   }
 
   /**
@@ -29,7 +29,7 @@ export class Toggle
    */
   toggle()
   {
-    if (!this.#form.checkFormCount()) {
+    if (!this.#hasForm.checkFormCount()) {
       console.log('form not exists.');
       return false;
     }

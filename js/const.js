@@ -1,5 +1,5 @@
 /**
- * id 要素名定数
+ * id, class 要素名定数
  */
 const Constants = Object.freeze({
     CopyPasteCheckboxId: 'toggle-checkbox',
@@ -9,6 +9,8 @@ const Constants = Object.freeze({
     FlashMessageId: 'copy-paste-form-value-error-message',
     CopyBtnId: 'copy_button_a',
     PasteBtnId: 'paste_button_a',
+    HiddenClass: 'copy-paste-form-value-hidden',
+    FlashMessageClass: 'copy-paste-form-value-message',
 });
 
 export default Constants;

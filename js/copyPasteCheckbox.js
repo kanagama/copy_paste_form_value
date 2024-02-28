@@ -57,17 +57,6 @@ export class CopyPasteCheckbox
   }
 
   /**
-   * toggle の値を localStorage に保存する
-   */
-  save()
-  {
-    const value = { [this.key()] : this.has() };
-    chrome.storage.local.set(value, () => {
-      console.log('saved this ' + this.key() + '.');
-    });
-  }
-
-  /**
    * チェックONにする
    */
   checked()

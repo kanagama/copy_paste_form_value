@@ -1,5 +1,5 @@
 import Constants from "../const.js";
-import { Form } from "./form.js";
+import HasForm from "./hasForm.js";
 import { Status } from "./status.js";
 
 /**
@@ -7,7 +7,7 @@ import { Status } from "./status.js";
  */
 export class MessageClass
 {
-  #form;
+  #hasForm;
   #status;
 
   /**
@@ -15,7 +15,7 @@ export class MessageClass
    */
   constructor()
   {
-    this.#form = new Form();
+    this.#hasForm = new HasForm();
     this.#status = new Status();
   }
 
@@ -26,23 +26,23 @@ export class MessageClass
    */
   toggle()
   {
-    if (!this.#form.checkFormCount()) {
+    if (!this.#hasForm.checkFormCount()) {
       console.log('form not exists.');
       return false;
     }
 
-    chrome.storage.local.get([Constants.FlashMessageId], (result) => {
+    chrome.storage.local.get([Constants.FlashMessageCheckboxId], (result) => {
       // 値を反転させる
-      const toggle = !result[Constants.FlashMessageId];
+      const toggle = !result[Constants.FlashMessageCheckboxId];
 
       this.#status.removeMessage();
       if (toggle) {
         this.#status.addMessage();
       }
 
-      const value = { [Constants.FlashMessageId] : toggle };
+      const value = { [Constants.FlashMessageCheckboxId] : toggle };
       chrome.storage.local.set(value, () => {
-        console.log('saved this ' + Constants.FlashMessageId + '.');
+        console.log('saved this ' + Constants.FlashMessageCheckboxId + '.');
       });
     });
 

@@ -1,19 +1,19 @@
 import Constants from "../const.js";
-import { Form } from "./form.js";
+import HasForm from "./hasForm.js";
 
 /**
  * Flashメッセージクラス（エラー通知）
  */
 export class FlashMessage
 {
-  #form;
+  #hasForm;
 
   /**
    *
    */
   constructor()
   {
-    this.#form = new Form();
+    this.#hasForm = new HasForm();
 
     this.load();
   }
@@ -42,7 +42,7 @@ export class FlashMessage
   load()
   {
     // 既に要素が存在している、もしくはフォームが1件でなければ終了
-    if (this.element() || !this.#form.checkFormCount()) {
+    if (this.element() || !this.#hasForm.checkFormCount()) {
       return;
     }
 

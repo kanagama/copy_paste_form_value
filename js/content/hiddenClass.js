@@ -1,5 +1,5 @@
 import Constants from "../const.js";
-import { Form } from "./form.js";
+import HasForm from "./hasForm.js";
 import { Status } from "./status.js";
 
 /**
@@ -7,7 +7,7 @@ import { Status } from "./status.js";
  */
 export class HiddenClass
 {
-  #form;
+  #hasForm;
   #status;
 
   /**
@@ -15,7 +15,7 @@ export class HiddenClass
    */
   constructor()
   {
-    this.#form = new Form();
+    this.#hasForm = new HasForm();
     this.#status = new Status();
   }
 
@@ -26,23 +26,23 @@ export class HiddenClass
    */
   toggle()
   {
-    if (!this.#form.checkFormCount()) {
+    if (!this.#hasForm.checkFormCount()) {
       console.log('form not exists.');
       return false;
     }
 
-    chrome.storage.local.get([Constants.StatusId], (result) => {
+    chrome.storage.local.get([Constants.HiddenCheckboxId], (result) => {
       // 値を反転させる
-      const toggle = !result[Constants.StatusId];
+      const toggle = !result[Constants.HiddenCheckboxId];
 
       this.#status.removeHidden();
       if (toggle) {
         this.#status.addHidden();
       }
 
-      const value = { [Constants.StatusId] : toggle };
+      const value = { [Constants.HiddenCheckboxId] : toggle };
       chrome.storage.local.set(value, () => {
-        console.log('saved this ' + Constants.StatusId + '.');
+        console.log('saved this ' + Constants.HiddenCheckboxId + '.');
       });
     });
 

@@ -1,8 +1,18 @@
+import Constants from '../const.js';
+import HasForm from './hasForm.js';
+
 /**
  * 画面上のFormに関するクラス
  */
 export class Form
 {
+  #hasForm;
+
+  constructor()
+  {
+    this.#hasForm = new HasForm();
+  }
+
   /**
    * @returns {string}
    */
@@ -26,6 +36,16 @@ export class Form
   }
 
   /**
+   * ステータス保存用 div に hidden クラスが付与されているかチェックする
+   *
+   * @returns {boolean}
+   */
+  hasHiddenClass()
+  {
+    return document.getElementById(Constants.StatusId).classList.contains(Constants.HiddenClass);
+  }
+
+  /**
    * 配列の中に指定した値が存在するかチェックする
    *
    * @param {string} value
@@ -37,36 +57,13 @@ export class Form
   }
 
   /**
-   * 画面上にフォームが1件のみである
-   *
-   * @returns {Boolean}
-   */
-  checkFormCount()
-  {
-    return (
-      this.getFormCount() == 1
-    );
-  }
-
-
-  /**
-   * 画面上のフォーム数を取得
-   *
-   * @returns {Number}
-   */
-  getFormCount()
-  {
-    return document.getElementsByTagName('form').length;
-  }
-
-  /**
    * フォームの値をすべて取得する
    *
    * @returns {string}
    */
   serializeArray()
   {
-    if (!this.checkFormCount()) {
+    if (!this.#hasForm.checkFormCount()) {
       return {};
     }
 
@@ -74,7 +71,7 @@ export class Form
     document.querySelector(`form`).querySelectorAll(`input, select, textarea`).forEach((element) => {
       if (
         // hidden 不要（※設定次第では必要）
-        (element.getAttribute('type') === 'hidden' && !hasHiddenClass())
+        (element.getAttribute('type') === 'hidden' && !this.hasHiddenClass())
         ||
         // submit ボタンは不要
         (element.getAttribute('type') === 'submit')
@@ -141,7 +138,7 @@ export class Form
     // 同じ名称の name が存在している
     if (elem.length > 1) {
       let type = '';
-      elem.forEach(function(element) {
+      elem.forEach((element) => {
         type = element.getAttribute('type');
         // continue
         if (type !== 'checkbox' && type !== 'radio') {
@@ -150,10 +147,9 @@ export class Form
 
         // value が同じ場合 check
         if (element.value === value) {
-
           element.checked = true;
-          this.dispatch(element);
 
+          this.dispatch(element);
           return false;
         }
       });
@@ -162,13 +158,11 @@ export class Form
 
     elem.forEach((element) => {
       let type = element.getAttribute('type');
-      if (type === 'hidden' && !hasHiddenClass()) {
+      if (type === 'hidden' && !this.hasHiddenClass()) {
         return true;
       }
 
-      element.value = value;
       this.dispatch(element);
-
       return false;
     });
 
@@ -187,9 +181,7 @@ export class Form
       return false;
     }
 
-    elem.value = value;
     this.dispatch(elem);
-
     return true;
   }
 
@@ -208,7 +200,6 @@ export class Form
     elem.value = value;
 
     this.dispatch(elem);
-
     return true;
   }
 

@@ -14,8 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // hidden-checkbox のイベント
   document.getElementById(hiddenCheckbox.key()).addEventListener('change', function () {
-    hiddenCheckbox.save();
-
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.sendMessage(tabs[0].id, 'hidden');
     });
@@ -23,8 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // toggle-checkbox のイベント
   document.getElementById(copyPasteCheckbox.key()).addEventListener('change', function () {
-    copyPasteCheckbox.save();
-
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.sendMessage(tabs[0].id, 'toggle');
     });
@@ -32,8 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // message-checkbox のイベント
   document.getElementById(flashMessageCheckbox.key()).addEventListener('change', function () {
-    flashMessageCheckbox.save();
-
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.sendMessage(tabs[0].id, 'message');
     });

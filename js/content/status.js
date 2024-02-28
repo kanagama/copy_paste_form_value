@@ -1,19 +1,19 @@
 import Constants from "../const.js";
-import { Form } from "./form.js";
+import HasForm from "./hasForm.js";
 
 /**
  * ステータスを保存するためのdiv要素クラス
  */
 export class Status
 {
-  #form;
+  #hasForm;
 
   /**
    *
    */
   constructor()
   {
-    this.#form = new Form();
+    this.#hasForm = new HasForm();
 
     this.load();
   }
@@ -42,11 +42,23 @@ export class Status
   load()
   {
     // 既に要素が存在している、もしくはフォームが1件でなければ終了
-    if (this.element() || !this.#form.checkFormCount()) {
+    if (this.element() || !this.#hasForm.checkFormCount()) {
       return;
     }
 
     document.body.insertAdjacentHTML("beforeend", this.html());
+
+    chrome.storage.local.get([Constants.HiddenCheckboxId], (result) => {
+      if (result[Constants.HiddenCheckboxId]) {
+        this.addHidden();
+      }
+    });
+
+    chrome.storage.local.get([Constants.FlashMessageCheckboxId], (result) => {
+      if (result[Constants.FlashMessageCheckboxId]) {
+        this.addMessage();
+      }
+    });
   }
 
   /**
@@ -64,21 +76,11 @@ export class Status
   }
 
   /**
-   * hidden class 存在チェック
-   *
-   * @returns {boolean}
-   */
-  hasHidden()
-  {
-    return this.element().classList.contains('hidden');
-  }
-
-  /**
    * hidden class を追加
    */
   addHidden()
   {
-    this.element().classList.add('hidden');
+    this.element().classList.add(Constants.HiddenClass);
   }
 
   /**
@@ -86,17 +88,7 @@ export class Status
    */
   removeHidden()
   {
-    this.element().classList.remove('hidden');
-  }
-
-  /**
-   * フラッシュメッセージ class 存在チェック
-   *
-   * @returns {boolean}
-   */
-  hasMessage()
-  {
-    return this.element().classList.contains('message');
+    this.element().classList.remove(Constants.HiddenClass);
   }
 
   /**
@@ -104,7 +96,7 @@ export class Status
    */
   addMessage()
   {
-    this.element().classList.add('message');
+    this.element().classList.add(Constants.FlashMessageClass);
   }
 
   /**
@@ -112,6 +104,6 @@ export class Status
    */
   removeMessage()
   {
-    this.element().classList.remove('message');
+    this.element().classList.remove(Constants.FlashMessageClass);
   }
 }

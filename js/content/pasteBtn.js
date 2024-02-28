@@ -1,5 +1,6 @@
 import Constants from "../const.js";
 import { Form } from "./form.js";
+import HasForm from "./hasForm.js";
 
 /**
  * ペーストボタン
@@ -7,6 +8,7 @@ import { Form } from "./form.js";
 export class PasteBtn
 {
   #form;
+  #hasForm;
 
   /**
    *
@@ -14,6 +16,7 @@ export class PasteBtn
   constructor()
   {
     this.#form = new Form();
+    this.#hasForm = new HasForm();
 
     this.load();
     this.toggle();
@@ -41,7 +44,7 @@ export class PasteBtn
   load()
   {
     // 既に要素が存在している、もしくはフォームが1件でなければ終了
-    if (this.element() || !this.#form.checkFormCount()) {
+    if (this.element() || !this.#hasForm.checkFormCount()) {
       return;
     }
 
@@ -106,7 +109,7 @@ export class PasteBtn
    */
   clickEvent()
   {
-    if (!this.#form.checkFormCount()) {
+    if (!this.#hasForm.checkFormCount()) {
       console.log('form not exists.');
       return false;
     }
