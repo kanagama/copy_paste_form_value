@@ -159,7 +159,7 @@ export class Form
     elem.forEach((element) => {
       let type = element.getAttribute('type');
       if (type === 'hidden' && !this.hasHiddenClass()) {
-        console.log('hidden is not copied.');
+        console.log('The hidden element is not copied.');
         return true;
       }
 
