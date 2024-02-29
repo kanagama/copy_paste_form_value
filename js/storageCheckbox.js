@@ -4,7 +4,7 @@ import Checkbox from "./checkbox.js";
 /**
  * コピーペーストチェックボックスクラス
  */
-export class CopyPasteCheckbox extends Checkbox
+export class StorageCheckbox extends Checkbox
 {
   static instance;
   static value;
@@ -14,14 +14,14 @@ export class CopyPasteCheckbox extends Checkbox
    */
   key()
   {
-    return Constants.CopyPasteCheckboxId;
+    return Constants.StorageCheckboxId;
   }
 
   /**
-   * @returns {string}
+   * @returns {storage}
    */
   command()
   {
-    return 'toggle';
+    return 'storage';
   }
 }

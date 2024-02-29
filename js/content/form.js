@@ -14,14 +14,6 @@ export class Form
   }
 
   /**
-   * @returns {string}
-   */
-  storageName()
-  {
-    return 'form_value';
-  }
-
-  /**
    * 無視する name 属性を取得
    *
    * @returns {Array}

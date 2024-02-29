@@ -1,6 +1,7 @@
 import Constants from "../const.js";
 import { Form } from "./form.js";
 import HasForm from "./hasForm.js";
+import { StorageName } from "./storageName.js";
 
 /**
  * コピーボタン
@@ -9,6 +10,7 @@ export class CopyBtn
 {
   #form;
   #hasForm;
+  #storageName;
 
   /**
    *
@@ -17,6 +19,7 @@ export class CopyBtn
   {
     this.#form = new Form();
     this.#hasForm = new HasForm();
+    this.#storageName = new StorageName();
 
     this.load();
     this.toggle();
@@ -30,6 +33,16 @@ export class CopyBtn
   key()
   {
     return Constants.CopyBtnId;
+  }
+
+  /**
+   * ストレージのキーを取得
+   *
+   * @returns {string}
+   */
+  storageKey()
+  {
+    return Constants.CopyPasteCheckboxId;
   }
 
   /**
@@ -65,9 +78,9 @@ export class CopyBtn
    */
   toggle()
   {
-    chrome.storage.local.get([Constants.CopyPasteCheckboxId], (result) => {
+    chrome.storage.local.get([this.storageKey()], (result) => {
       this.hide();
-      if (result[Constants.CopyPasteCheckboxId]) {
+      if (!!result[this.storageKey()]) {
         this.show();
       }
 
@@ -124,7 +137,7 @@ export class CopyBtn
       return false;
     }
 
-    const value = { [this.#form.storageName()] : this.#form.serializeArray() };
+    const value = { [this.#storageName.get()] : this.#form.serializeArray() };
     chrome.storage.local.set(value, () => {
       console.log('saved this form. clickEvent');
     });

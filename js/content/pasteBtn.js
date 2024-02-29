@@ -1,6 +1,7 @@
 import Constants from "../const.js";
 import { Form } from "./form.js";
 import HasForm from "./hasForm.js";
+import { StorageName } from "./storageName.js";
 
 /**
  * ペーストボタン
@@ -9,6 +10,7 @@ export class PasteBtn
 {
   #form;
   #hasForm;
+  #storageName;
 
   /**
    *
@@ -17,6 +19,7 @@ export class PasteBtn
   {
     this.#form = new Form();
     this.#hasForm = new HasForm();
+    this.#storageName = new StorageName();
 
     this.load();
     this.toggle();
@@ -28,6 +31,16 @@ export class PasteBtn
   key()
   {
     return Constants.PasteBtnId;
+  }
+
+  /**
+   * ストレージのキーを取得
+   *
+   * @returns {string}
+   */
+  storageKey()
+  {
+    return Constants.CopyPasteCheckboxId;
   }
 
   /**
@@ -63,8 +76,8 @@ export class PasteBtn
   {
     this.hide();
 
-    chrome.storage.local.get([Constants.CopyPasteCheckboxId], (result) => {
-      if (result[Constants.CopyPasteCheckboxId]) {
+    chrome.storage.local.get([this.storageKey()], (result) => {
+      if (!!result[this.storageKey()]) {
         this.show();
       }
 
@@ -125,13 +138,13 @@ export class PasteBtn
       return false;
     }
 
-    chrome.storage.local.get([this.#form.storageName()], (result) => {
-      if (!result.hasOwnProperty(this.#form.storageName())) {
+    chrome.storage.local.get([this.#storageName.get()], (result) => {
+      if (!result.hasOwnProperty(this.#storageName.get())) {
         console.log('copy data not exists. clickEvent');
         return false;
       }
 
-      let object = JSON.parse(result[this.#form.storageName()]);
+      let object = JSON.parse(result[this.#storageName.get()]);
 
       Object.keys(object).forEach((key) => {
         // 特定の名称でない

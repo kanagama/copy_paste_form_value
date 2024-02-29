@@ -4,7 +4,7 @@ import { Status } from "./status.js";
 /**
  *
  */
-export class MessageClass
+export class StorageClass
 {
   #status;
 
@@ -23,7 +23,7 @@ export class MessageClass
    */
   storageKey()
   {
-    return Constants.FlashMessageCheckboxId;
+    return Constants.StorageCheckboxId;
   }
 
   /**
@@ -41,9 +41,9 @@ export class MessageClass
         console.log('saved this ' + this.storageKey() + '.');
       });
 
-      this.#status.removeMessage();
+      this.#status.removeStorage();
       if (toggle) {
-        this.#status.addMessage();
+        this.#status.addStorage();
       }
     });
 

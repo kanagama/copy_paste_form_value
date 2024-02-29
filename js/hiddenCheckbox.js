@@ -1,19 +1,13 @@
 import Constants from "./const.js";
+import Checkbox from "./checkbox.js";
 
 /**
  * hidden 対応チェックボックスクラス
- *
- * @test
  */
-export class HiddenCheckbox
+export class HiddenCheckbox extends Checkbox
 {
-  /**
-   *
-   */
-  constructor()
-  {
-    this.load();
-  }
+  static instance;
+  static value;
 
   /**
    * キー名称を取得
@@ -26,76 +20,10 @@ export class HiddenCheckbox
   }
 
   /**
-   * 対象チェックボックス要素を取得
-   *
-   * @returns {HTMLElement}
+   * @returns {string}
    */
-  element()
+  command()
   {
-    return document.getElementById(this.key());
-  }
-
-  /**
-   * checkbox の状態を取得する
-   *
-   * @returns {boolean}
-   */
-  has()
-  {
-    if (!this.element()) {
-      return false;
-    }
-
-    return this.element().checked;
-  }
-
-  /**
-   * toggle の値を localStorage から呼び出す
-   */
-  load()
-  {
-    this.unchecked();
-
-    chrome.storage.local.get([this.key()], (result) => {
-      this.loaded(Boolean(result[this.key()]));
-    });
-  }
-
-  /**
-   * 読み込み完了処理
-   *
-   * @param {Boolean} result
-   */
-  loaded(result)
-  {
-    if (result) {
-      this.checked();
-    }
-
-    console.log('loaded this ' + this.key() + '.');
-  }
-
-  /**
-   * チェックONにする
-   */
-  checked()
-  {
-    if (!this.element()) {
-      return;
-    }
-
-    this.element().checked = true;
-  }
-
-  /**
-   * チェックOFFにする
-   */
-  unchecked()
-  {
-    if (!this.element()) {
-      return;
-    }
-
-    this.element().checked = false;
+    return 'hidden';
   }
 }

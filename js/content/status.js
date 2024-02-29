@@ -54,6 +54,12 @@ export class Status
         this.addMessage();
       }
     });
+
+    chrome.storage.local.get([Constants.StorageCheckboxId], (result) => {
+      if (result[Constants.StorageCheckboxId]) {
+        this.addStorage();
+      }
+    });
   }
 
   /**
@@ -71,10 +77,28 @@ export class Status
   }
 
   /**
+   * hidden class が存在するかチェック
+   *
+   * @returns {boolean}
+   */
+  hasHidden()
+  {
+    if (!this.element()) {
+      return false;
+    }
+
+    return !!this.element().classList.contains(Constants.HiddenClass);
+  }
+
+  /**
    * hidden class を追加
    */
   addHidden()
   {
+    if (!this.element()) {
+      return false;
+    }
+
     this.element().classList.add(Constants.HiddenClass);
   }
 
@@ -83,7 +107,25 @@ export class Status
    */
   removeHidden()
   {
+    if (!this.element()) {
+      return false;
+    }
+
     this.element().classList.remove(Constants.HiddenClass);
+  }
+
+  /**
+   * フラッシュメッセージ class を追加
+   *
+   * @returns {boolean}
+   */
+  hasMessage()
+  {
+    if (!this.element()) {
+      return false;
+    }
+
+    return !!this.element().classList.contains(Constants.FlashMessageClass);
   }
 
   /**
@@ -91,6 +133,10 @@ export class Status
    */
   addMessage()
   {
+    if (!this.element()) {
+      return false;
+    }
+
     this.element().classList.add(Constants.FlashMessageClass);
   }
 
@@ -99,6 +145,48 @@ export class Status
    */
   removeMessage()
   {
+    if (!this.element()) {
+      return false;
+    }
+
     this.element().classList.remove(Constants.FlashMessageClass);
+  }
+
+  /**
+   * ストレージ class が存在するかチェック
+   *
+   * @returns {boolean}
+   */
+  hasStorage()
+  {
+    if (!this.element()) {
+      return false;
+    }
+
+    return !!this.element().classList.contains(Constants.StorageClass);
+  }
+
+  /**
+   * ストレージ class を追加
+   */
+  addStorage()
+  {
+    if (!this.element()) {
+      return;
+    }
+
+    this.element().classList.add(Constants.StorageClass);
+  }
+
+  /**
+   * ストレージ class を削除
+   */
+  removeStorage()
+  {
+    if (!this.element()) {
+      return;
+    }
+
+    this.element().classList.remove(Constants.StorageClass);
   }
 }

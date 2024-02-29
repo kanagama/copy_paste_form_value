@@ -14,6 +14,12 @@
   "hiddenOptionLabel": {
     "message": "hidden is now also included in the copy/paste target"
   },
+  "storageOption": {
+    "message": "Keep a copy for each domain"
+  },
+  "storageOptionLabel": {
+    "message": "Maintain a copy for each domain. When pasting, also keep a copy for each domain."
+  },
   "copyPasteBtn": {
     "message": "Show copy/paste button"
   },

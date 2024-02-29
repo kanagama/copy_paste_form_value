@@ -18,10 +18,22 @@ export class FlashMessage
 
   /**
    * キー名称を取得
+   *
+   * @returns {string}
    */
   key()
   {
     return Constants.FlashMessageId;
+  }
+
+  /**
+   * ストレージのキーを取得
+   *
+   * @returns {string}
+   */
+  storageKey()
+  {
+    return Constants.FlashMessageCheckboxId;
   }
 
   /**
@@ -45,8 +57,8 @@ export class FlashMessage
     }
 
     // 表示ONであれば表示する
-    chrome.storage.local.get([Constants.FlashMessageCheckboxId], (result) => {
-      if (result[Constants.FlashMessageCheckboxId]) {
+    chrome.storage.local.get([this.storageKey()], (result) => {
+      if (!!result[this.storageKey()]) {
         document.body.insertAdjacentHTML("beforeend", this.html());
         this.hide();
       }
