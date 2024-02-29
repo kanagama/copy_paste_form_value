@@ -1,4 +1,4 @@
-import { HiddenCheckbox, Version } from '../js/version.js';
+import { Version } from '../js/version.js';
 
 const fs = require('fs')
 const bodyHtml = fs.readFileSync('./html/index.html', {encoding: "utf-8"});
@@ -9,6 +9,6 @@ new Version();
 
 test('version番号が正常に設定される', () => {
     // mock で固定している
-    expect(document.getElementById('version').textContent).toBe('1.3.0');
+    expect(document.getElementById('version').textContent).toBe('1.5.0');
 });
 

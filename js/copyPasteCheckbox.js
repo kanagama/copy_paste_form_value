@@ -1,11 +1,9 @@
 import Constants from "./const.js";
 
 /**
- * hidden 対応チェックボックスクラス
- *
- * @test
+ * コピーペーストチェックボックスクラス
  */
-export class HiddenCheckbox
+export class CopyPasteCheckbox
 {
   /**
    *
@@ -17,12 +15,10 @@ export class HiddenCheckbox
 
   /**
    * キー名称を取得
-   *
-   * @returns {string}
    */
   key()
   {
-    return Constants.HiddenCheckboxId;
+    return Constants.CopyPasteCheckboxId;
   }
 
   /**
@@ -32,7 +28,7 @@ export class HiddenCheckbox
    */
   element()
   {
-    return document.getElementById(this.key());
+    return document.getElementById(this.key())
   }
 
   /**
@@ -50,7 +46,7 @@ export class HiddenCheckbox
   }
 
   /**
-   * toggle の値を localStorage から呼び出す
+   * style.display 情報を取得
    */
   load()
   {

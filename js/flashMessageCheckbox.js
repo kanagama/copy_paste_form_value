@@ -1,11 +1,9 @@
 import Constants from "./const.js";
 
 /**
- * hidden 対応チェックボックスクラス
- *
- * @test
+ * フラッシュメッセージチェックボックスクラス（エラー通知）
  */
-export class HiddenCheckbox
+export class FlashMessageCheckbox
 {
   /**
    *
@@ -22,7 +20,7 @@ export class HiddenCheckbox
    */
   key()
   {
-    return Constants.HiddenCheckboxId;
+    return Constants.FlashMessageCheckboxId;
   }
 
   /**
@@ -92,10 +90,6 @@ export class HiddenCheckbox
    */
   unchecked()
   {
-    if (!this.element()) {
-      return;
-    }
-
     this.element().checked = false;
   }
 }

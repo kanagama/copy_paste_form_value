@@ -3,6 +3,9 @@
  */
 export class Version
 {
+    /**
+     *
+     */
     constructor()
     {
         this.load();

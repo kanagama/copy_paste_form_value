@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "copy paste form value",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "default_locale": "en",
   "description": "__MSG_description__",
   "icons": {
@@ -40,6 +40,12 @@
         "default": "Alt+P"
       },
       "description": "__MSG_copyPasteBtn__"
+    },
+    "message": {
+      "suggested_key": {
+        "default": "Alt+M"
+      },
+      "description": "__MSG_flashMessage__"
     }
   },
   "permissions": [
