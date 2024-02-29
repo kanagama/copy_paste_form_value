@@ -40,10 +40,12 @@ export class StorageName
     }
 
     /**
-     * ドメインをセット
+     * ドメインとパス名をセット
      */
     set()
     {
-        this.#domain = location.hostname.replace(/\./g, '_');
+        const url = location.hostname + location.pathname;
+
+        this.#domain = url.replace(/\./g, '_');
     }
 }
