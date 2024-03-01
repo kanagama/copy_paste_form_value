@@ -15,10 +15,10 @@
     "message": "hidden is now also included in the copy/paste target"
   },
   "storageOption": {
-    "message": "Keep a copy for each domain"
+    "message": "Keep a separate copy for each URL"
   },
   "storageOptionLabel": {
-    "message": "Maintain a copy for each domain. When pasting, also keep a copy for each domain."
+    "message": "Keep a separate copy for each URL. (*Except for the get parameter.) Pasting is also done for each URL."
   },
   "copyPasteBtn": {
     "message": "Show copy/paste button"
