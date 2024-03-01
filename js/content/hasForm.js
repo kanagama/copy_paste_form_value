@@ -6,7 +6,7 @@ export default class HasForm
   /**
    * 画面上にフォームが1件のみである
    *
-   * @returns {Boolean}
+   * @returns {boolean}
    */
   checkFormCount()
   {

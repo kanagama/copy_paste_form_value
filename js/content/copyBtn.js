@@ -57,12 +57,14 @@ export class CopyBtn
 
   /**
    * 要素を挿入する
+   *
+   * @returns {boolean}
    */
   load()
   {
     // 既に要素が存在している、もしくはフォームが1件でなければ終了
     if (this.element() || !this.#hasForm.checkFormCount()) {
-      return;
+      return false;
     }
 
     document.body.insertAdjacentHTML("beforeend", this.html());
@@ -71,6 +73,8 @@ export class CopyBtn
     this.element().addEventListener('click', () => {
       this.clickEvent();
     });
+
+    return false;
   }
 
   /**
@@ -94,10 +98,11 @@ export class CopyBtn
   show()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().style.display = 'flex';
+    return true;
   }
 
   /**
@@ -106,14 +111,17 @@ export class CopyBtn
   hide()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().style.display = 'none';
+    return true;
   }
 
   /**
    * コピーボタンHTMLを取得
+   *
+   * @returns {string}
    */
   html()
   {
@@ -129,6 +137,8 @@ export class CopyBtn
 
   /**
    * コピー処理
+   *
+   * @returns {boolean}
    */
   clickEvent()
   {

@@ -48,12 +48,14 @@ export class FlashMessage
 
   /**
    * 要素を挿入する
+   *
+   * @returns {boolean}
    */
   load()
   {
     // 既に要素が存在しているまたはフォームが存在している
     if (this.element() || this.#hasForm.checkFormCount()) {
-      return;
+      return false;
     }
 
     // 表示ONであれば表示する
@@ -63,6 +65,8 @@ export class FlashMessage
         this.hide();
       }
     });
+
+    return true;
   }
 
   /**
@@ -84,10 +88,12 @@ export class FlashMessage
   {
     // 既に表示されていたら何もしない
     if (this.has()) {
-      return;
+      return false;
     }
 
     this.load();
+
+    return true;
   }
 
   /**
@@ -96,7 +102,7 @@ export class FlashMessage
   hide()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     setTimeout(() => {
@@ -126,6 +132,8 @@ export class FlashMessage
         }
       }, interval);
     }, 2000);
+
+    return true;
   }
 
   /**

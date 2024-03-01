@@ -46,13 +46,13 @@ chrome.runtime.onMessage.addListener((command) => {
         break;
     }
 
+    // ここから先の処理は Form が必要
     if (!hasForm.checkFormCount()) {
       console.log('form not exists. onMessage.addListener');
       flashMessageClass.show();
       return false;
     }
 
-    // form があれば動作する
     switch (command) {
       case 'copy':
         copyBtnClass.clickEvent();
@@ -65,17 +65,3 @@ chrome.runtime.onMessage.addListener((command) => {
 
   return true;
 });
-
-/**
- * ハッシュ化
- *
- * @param {string} message
- * @returns
- */
-async function digestMessage(message)
-{
-  const encoder = new TextEncoder();
-  const data = encoder.encode(message);
-  const hash = await window.crypto.subtle.digest('SHA-256', data);
-  return hash;
-}

@@ -15,6 +15,8 @@ export class Status
 
   /**
    * キー名称を取得
+   *
+   * @returns {string}
    */
   key()
   {
@@ -33,12 +35,14 @@ export class Status
 
   /**
    * 要素を挿入する
+   *
+   * @returns {boolean}
    */
   load()
   {
     // 既に要素が存在している
     if (this.element()) {
-      return;
+      return false;
     }
 
     document.body.insertAdjacentHTML("beforeend", this.html());
@@ -60,6 +64,8 @@ export class Status
         this.addStorage();
       }
     });
+
+    return true;
   }
 
   /**
@@ -92,6 +98,8 @@ export class Status
 
   /**
    * hidden class を追加
+   *
+   * @returns {boolean}
    */
   addHidden()
   {
@@ -100,10 +108,14 @@ export class Status
     }
 
     this.element().classList.add(Constants.HiddenClass);
+
+    return true;
   }
 
   /**
    * hidden class を削除
+   *
+   * @returns {boolean}
    */
   removeHidden()
   {
@@ -112,6 +124,8 @@ export class Status
     }
 
     this.element().classList.remove(Constants.HiddenClass);
+
+    return true;
   }
 
   /**
@@ -130,6 +144,8 @@ export class Status
 
   /**
    * フラッシュメッセージ class を追加
+   *
+   * @return {boolean}
    */
   addMessage()
   {
@@ -138,10 +154,14 @@ export class Status
     }
 
     this.element().classList.add(Constants.FlashMessageClass);
+
+    return true;
   }
 
   /**
    * フラッシュメッセージ class を削除
+   *
+   * @returns {boolean}
    */
   removeMessage()
   {
@@ -150,6 +170,8 @@ export class Status
     }
 
     this.element().classList.remove(Constants.FlashMessageClass);
+
+    return true;
   }
 
   /**
@@ -168,25 +190,33 @@ export class Status
 
   /**
    * ストレージ class を追加
+   *
+   * @returns {boolean}
    */
   addStorage()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().classList.add(Constants.StorageClass);
+
+    return true;
   }
 
   /**
    * ストレージ class を削除
+   *
+   * @returns {boolean}
    */
   removeStorage()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().classList.remove(Constants.StorageClass);
+
+    return true;
   }
 }

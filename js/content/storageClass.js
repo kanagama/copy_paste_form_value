@@ -2,7 +2,7 @@ import Constants from "../const.js";
 import { Status } from "./status.js";
 
 /**
- *
+ * ストレージ切り替えクラス
  */
 export class StorageClass
 {
@@ -27,7 +27,7 @@ export class StorageClass
   }
 
   /**
-   * hidden 要素のコピー・ペースト可否を切り替える
+   * storage 要素のON/OFFを切り替える
    *
    * @returns {boolean}
    */

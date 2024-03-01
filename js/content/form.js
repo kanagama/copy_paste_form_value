@@ -41,7 +41,7 @@ export class Form
    * 配列の中に指定した値が存在するかチェックする
    *
    * @param {string} value
-   * @returns
+   * @returns {boolean}
    */
   inArray(value)
   {

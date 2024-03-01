@@ -27,6 +27,8 @@ export class PasteBtn
 
   /**
    * キー名称を取得
+   *
+   * @returns {string}
    */
   key()
   {
@@ -53,12 +55,14 @@ export class PasteBtn
 
   /**
    * style.display 情報を取得
+   *
+   * @returns {boolean}
    */
   load()
   {
     // 既に要素が存在している、もしくはフォームが1件でなければ終了
     if (this.element() || !this.#hasForm.checkFormCount()) {
-      return;
+      return false;
     }
 
     document.body.insertAdjacentHTML("beforeend", this.html());
@@ -67,6 +71,8 @@ export class PasteBtn
     this.element().addEventListener('click', () => {
       this.clickEvent();
     });
+
+    return true;
   }
 
   /**
@@ -91,22 +97,26 @@ export class PasteBtn
   show()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().style.display = 'flex';
+    return true;
   }
 
   /**
    * ボタン非表示
+   *
+   * @returns {boolean}
    */
   hide()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().style.display = 'none';
+    return true;
   }
 
   /**

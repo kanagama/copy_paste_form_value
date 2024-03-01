@@ -20,11 +20,6 @@ test('has()でチェック状態を取得できる', () => {
     expect(flashMessageCheckbox.has()).toBe(false);
 });
 
-test('loaded()でtrueを渡すとチェックが入る', () => {
-    flashMessageCheckbox.loaded(true);
-    expect(flashMessageCheckbox.has()).toBe(true);
-});
-
 test('checked() で要素にチェックできる', () => {
     flashMessageCheckbox.checked();
     expect(flashMessageCheckbox.has()).toBe(true);

@@ -1,7 +1,7 @@
 import { Version } from '../js/version.js';
 
 const fs = require('fs')
-const bodyHtml = fs.readFileSync('./html/index.html', {encoding: "utf-8"});
+const bodyHtml = fs.readFileSync('./popup.html', {encoding: "utf-8"});
 
 document.body.innerHTML = bodyHtml;
 

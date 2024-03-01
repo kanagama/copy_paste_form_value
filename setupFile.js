@@ -13,5 +13,10 @@ global.chrome = {
       getManifest: jest.fn(() => {
         return { version: '2.0.0' };
       })
-    }
+    },
+    i18n: {
+      getMessage: jest.fn(() => {
+        return 'mocked value';
+      })
+    },
 };
