@@ -1,7 +1,7 @@
 /**
  * コピーペーストチェックボックスクラス
  */
-export default class CopyPasteCheckbox
+export default class Checkbox
 {
   static instance;
   static value;
@@ -137,15 +137,32 @@ export default class CopyPasteCheckbox
   }
 
   /**
-   * popup.js で利用する配列を作成
+   * チェック状態を変更した際の処理
    *
-   * @returns {{key: string, command: string}}
+   * @returns {boolean}
    */
-  popup()
+  change()
   {
-    return {
-      key: this.key(),
-      command: this.command(),
-    };
+    if (this.has()) {
+      return this.checked();
+    }
+
+    return this.unchecked();
+  }
+
+  /**
+   * @throws {Error}
+   */
+  disabled()
+  {
+    throw new Error('Checkbox クラスの disabled() を呼び出してはいけません');
+  }
+
+  /**
+   * @throws {Error}
+   */
+  enabled()
+  {
+    throw new Error('Checkbox クラスの enabled() を呼び出してはいけません');
   }
 }

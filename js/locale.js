@@ -3,7 +3,7 @@ const i18n = chrome.i18n;
 /**
  * popup.html の翻訳テキストを取得する
  */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   // 拡張子名を設定
   document.getElementById("extensionName").textContent = i18n.getMessage("extensionName");
 
@@ -19,6 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("flashMessage").textContent = i18n.getMessage("flashMessage");
   document.getElementById("flashMessageLabel").title = i18n.getMessage("flashMessageLabel");
 
+  // storage のタイトルと説明文を表示する
   document.getElementById("storageOption").textContent = i18n.getMessage("storageOption");
   document.getElementById("storageOptionLabel").title = i18n.getMessage("storageOptionLabel");
+
+  // autopaste のタイトルと説明文を表示する
+  document.getElementById("autoPasteOption").textContent = i18n.getMessage("autoPasteOption");
+  document.getElementById("autoPasteOptionLabel").title = i18n.getMessage("autoPasteOptionLabel");
 });

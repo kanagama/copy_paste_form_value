@@ -18,10 +18,12 @@ export class CopyPasteCheckbox extends Checkbox
   }
 
   /**
+   * コマンド名
+   *
    * @returns {string}
    */
   command()
   {
-    return 'toggle';
+    return 'copy-paste-form-value-toggle';
   }
 }
