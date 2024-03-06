@@ -219,4 +219,48 @@ export class Status
 
     return true;
   }
+
+  /**
+   * 自動ペースト class が存在するかチェック
+   *
+   * @returns {boolean}
+   */
+  hasAutoPaste()
+  {
+    if (!this.element()) {
+      return false;
+    }
+
+    return !!this.element().classList.contains(Constants.AutoPasteClass);
+  }
+
+  /**
+   * 自動ペースト class を追加
+   *
+   * @returns {boolean}
+   */
+  addAutoPaste()
+  {
+    if (!this.element()) {
+      return false;
+    }
+
+    this.element().classList.add(Constants.AutoPasteClass);
+    return true;
+  }
+
+  /**
+   * 自動ペースト class を削除
+   *
+   * @returns {boolean}
+   */
+  removeAutoPaste()
+  {
+    if (!this.element()) {
+      return false;
+    }
+
+    this.element().classList.remove(Constants.AutoPasteClass);
+    return true;
+  }
 }

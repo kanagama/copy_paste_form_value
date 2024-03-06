@@ -20,10 +20,12 @@ export class HiddenCheckbox extends Checkbox
   }
 
   /**
+   * コマンド名
+   *
    * @returns {string}
    */
   command()
   {
-    return 'hidden';
+    return 'copy-paste-form-value-hidden';
   }
 }

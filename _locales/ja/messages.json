@@ -20,6 +20,15 @@
   "storageOptionLabel": {
     "message": "URL に個別でコピーを保持する。（※get パラメータを除く）ペーストの際も、URL毎とする"
   },
+  "removeDescription": {
+    "message": "現在のページのクリップボードを削除"
+  },
+  "autoPasteOption": {
+    "message": "自動ペースト"
+  },
+  "autoPasteOptionLabel": {
+    "message": "ページ読み込み完了後、該当URLにコピーされた情報があれば自動でペーストする"
+  },
   "copyPasteBtn": {
     "message": "コピー・ペーストボタンを画面右下に表示"
   },

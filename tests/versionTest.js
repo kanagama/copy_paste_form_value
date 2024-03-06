@@ -9,6 +9,6 @@ new Version();
 
 test('version番号が正常に設定される', () => {
     // mock で固定している
-    expect(document.getElementById('version').textContent).toBe('2.0.0');
+    expect(document.getElementById('version').textContent).toBe('2.1.0');
 });
 

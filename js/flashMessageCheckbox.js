@@ -20,10 +20,12 @@ export class FlashMessageCheckbox extends Checkbox
   }
 
   /**
+   * コマンド名
+   *
    * @returns {string}
    */
   command()
   {
-    return 'message';
+    return 'copy-paste-form-value-message';
   }
 }

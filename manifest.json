@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "copy paste form value",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "default_locale": "en",
   "description": "__MSG_description__",
   "icons": {
@@ -23,28 +23,31 @@
     "service_worker" : "background.js"
   },
   "commands": {
-    "copy": {
+    "copy-paste-form-value-copy": {
       "suggested_key": {
         "default": "Alt+I"
       },
       "description": "__MSG_copyBtnDescription__"
     },
-    "paste": {
+    "copy-paste-form-value-paste": {
       "suggested_key": {
         "default": "Alt+O"
       },
       "description": "__MSG_pasteBtnDescription__"
     },
-    "toggle": {
+    "copy-paste-form-value-toggle": {
       "suggested_key": {
         "default": "Alt+P"
       },
       "description": "__MSG_copyPasteBtn__"
     },
-    "message": {
+    "copy-paste-form-value-remove": {
       "suggested_key": {
-        "default": "Alt+M"
+        "default": "Alt+D"
       },
+      "description": "__MSG_removeDescription__"
+    },
+    "copy-paste-form-value-message": {
       "description": "__MSG_flashMessage__"
     }
   },

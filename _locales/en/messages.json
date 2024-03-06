@@ -17,6 +17,15 @@
   "storageOption": {
     "message": "Keep a separate copy for each URL"
   },
+  "removeDescription": {
+    "message": "Delete the clipboard of the current page"
+  },
+  "autoPasteOption": {
+    "message": "Auto Paste"
+  },
+  "autoPasteOptionLabel": {
+    "message": "After the page load is complete, any information copied at the relevant URL is automatically pasted."
+  },
   "storageOptionLabel": {
     "message": "Keep a separate copy for each URL. (*Except for the get parameter.) Pasting is also done for each URL."
   },
