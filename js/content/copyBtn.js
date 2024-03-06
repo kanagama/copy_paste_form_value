@@ -1,6 +1,7 @@
 import Constants from "../const.js";
 import { Form } from "./form.js";
 import HasForm from "./hasForm.js";
+import { StorageName } from "./storageName.js";
 
 /**
  * コピーボタン
@@ -9,6 +10,7 @@ export class CopyBtn
 {
   #form;
   #hasForm;
+  #storageName;
 
   /**
    *
@@ -17,6 +19,7 @@ export class CopyBtn
   {
     this.#form = new Form();
     this.#hasForm = new HasForm();
+    this.#storageName = new StorageName();
 
     this.load();
     this.toggle();
@@ -33,6 +36,16 @@ export class CopyBtn
   }
 
   /**
+   * ストレージのキーを取得
+   *
+   * @returns {string}
+   */
+  storageKey()
+  {
+    return Constants.CopyPasteCheckboxId;
+  }
+
+  /**
    * 対象ボタン要素を取得
    *
    * @returns {HTMLElement}
@@ -44,12 +57,14 @@ export class CopyBtn
 
   /**
    * 要素を挿入する
+   *
+   * @returns {boolean}
    */
   load()
   {
     // 既に要素が存在している、もしくはフォームが1件でなければ終了
     if (this.element() || !this.#hasForm.checkFormCount()) {
-      return;
+      return false;
     }
 
     document.body.insertAdjacentHTML("beforeend", this.html());
@@ -58,6 +73,8 @@ export class CopyBtn
     this.element().addEventListener('click', () => {
       this.clickEvent();
     });
+
+    return false;
   }
 
   /**
@@ -65,9 +82,9 @@ export class CopyBtn
    */
   toggle()
   {
-    chrome.storage.local.get([Constants.CopyPasteCheckboxId], (result) => {
+    chrome.storage.local.get([this.storageKey()], (result) => {
       this.hide();
-      if (result[Constants.CopyPasteCheckboxId]) {
+      if (!!result[this.storageKey()]) {
         this.show();
       }
 
@@ -81,10 +98,11 @@ export class CopyBtn
   show()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().style.display = 'flex';
+    return true;
   }
 
   /**
@@ -93,14 +111,17 @@ export class CopyBtn
   hide()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().style.display = 'none';
+    return true;
   }
 
   /**
    * コピーボタンHTMLを取得
+   *
+   * @returns {string}
    */
   html()
   {
@@ -116,6 +137,8 @@ export class CopyBtn
 
   /**
    * コピー処理
+   *
+   * @returns {boolean}
    */
   clickEvent()
   {
@@ -124,7 +147,7 @@ export class CopyBtn
       return false;
     }
 
-    const value = { [this.#form.storageName()] : this.#form.serializeArray() };
+    const value = { [this.#storageName.get()] : this.#form.serializeArray() };
     chrome.storage.local.set(value, () => {
       console.log('saved this form. clickEvent');
     });

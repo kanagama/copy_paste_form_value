@@ -14,6 +14,12 @@
   "hiddenOptionLabel": {
     "message": "hidden 要素もコピー・ペーストの対象とします"
   },
+  "storageOption": {
+    "message": "URL 毎に個別でコピーを保持する"
+  },
+  "storageOptionLabel": {
+    "message": "URL に個別でコピーを保持する。（※get パラメータを除く）ペーストの際も、URL毎とする"
+  },
   "copyPasteBtn": {
     "message": "コピー・ペーストボタンを画面右下に表示"
   },

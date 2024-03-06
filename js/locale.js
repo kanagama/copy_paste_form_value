@@ -18,4 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // flashMessage のタイトルと説明文を表示する
   document.getElementById("flashMessage").textContent = i18n.getMessage("flashMessage");
   document.getElementById("flashMessageLabel").title = i18n.getMessage("flashMessageLabel");
+
+  document.getElementById("storageOption").textContent = i18n.getMessage("storageOption");
+  document.getElementById("storageOptionLabel").title = i18n.getMessage("storageOptionLabel");
 });

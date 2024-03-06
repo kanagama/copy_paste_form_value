@@ -18,10 +18,22 @@ export class FlashMessage
 
   /**
    * キー名称を取得
+   *
+   * @returns {string}
    */
   key()
   {
     return Constants.FlashMessageId;
+  }
+
+  /**
+   * ストレージのキーを取得
+   *
+   * @returns {string}
+   */
+  storageKey()
+  {
+    return Constants.FlashMessageCheckboxId;
   }
 
   /**
@@ -36,21 +48,25 @@ export class FlashMessage
 
   /**
    * 要素を挿入する
+   *
+   * @returns {boolean}
    */
   load()
   {
     // 既に要素が存在しているまたはフォームが存在している
     if (this.element() || this.#hasForm.checkFormCount()) {
-      return;
+      return false;
     }
 
     // 表示ONであれば表示する
-    chrome.storage.local.get([Constants.FlashMessageCheckboxId], (result) => {
-      if (result[Constants.FlashMessageCheckboxId]) {
+    chrome.storage.local.get([this.storageKey()], (result) => {
+      if (!!result[this.storageKey()]) {
         document.body.insertAdjacentHTML("beforeend", this.html());
         this.hide();
       }
     });
+
+    return true;
   }
 
   /**
@@ -72,10 +88,12 @@ export class FlashMessage
   {
     // 既に表示されていたら何もしない
     if (this.has()) {
-      return;
+      return false;
     }
 
     this.load();
+
+    return true;
   }
 
   /**
@@ -84,7 +102,7 @@ export class FlashMessage
   hide()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     setTimeout(() => {
@@ -114,6 +132,8 @@ export class FlashMessage
         }
       }, interval);
     }, 2000);
+
+    return true;
   }
 
   /**

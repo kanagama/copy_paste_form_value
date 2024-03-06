@@ -1,6 +1,7 @@
 import Constants from "../const.js";
 import { Form } from "./form.js";
 import HasForm from "./hasForm.js";
+import { StorageName } from "./storageName.js";
 
 /**
  * ペーストボタン
@@ -9,6 +10,7 @@ export class PasteBtn
 {
   #form;
   #hasForm;
+  #storageName;
 
   /**
    *
@@ -17,6 +19,7 @@ export class PasteBtn
   {
     this.#form = new Form();
     this.#hasForm = new HasForm();
+    this.#storageName = new StorageName();
 
     this.load();
     this.toggle();
@@ -24,10 +27,22 @@ export class PasteBtn
 
   /**
    * キー名称を取得
+   *
+   * @returns {string}
    */
   key()
   {
     return Constants.PasteBtnId;
+  }
+
+  /**
+   * ストレージのキーを取得
+   *
+   * @returns {string}
+   */
+  storageKey()
+  {
+    return Constants.CopyPasteCheckboxId;
   }
 
   /**
@@ -40,12 +55,14 @@ export class PasteBtn
 
   /**
    * style.display 情報を取得
+   *
+   * @returns {boolean}
    */
   load()
   {
     // 既に要素が存在している、もしくはフォームが1件でなければ終了
     if (this.element() || !this.#hasForm.checkFormCount()) {
-      return;
+      return false;
     }
 
     document.body.insertAdjacentHTML("beforeend", this.html());
@@ -54,6 +71,8 @@ export class PasteBtn
     this.element().addEventListener('click', () => {
       this.clickEvent();
     });
+
+    return true;
   }
 
   /**
@@ -63,8 +82,8 @@ export class PasteBtn
   {
     this.hide();
 
-    chrome.storage.local.get([Constants.CopyPasteCheckboxId], (result) => {
-      if (result[Constants.CopyPasteCheckboxId]) {
+    chrome.storage.local.get([this.storageKey()], (result) => {
+      if (!!result[this.storageKey()]) {
         this.show();
       }
 
@@ -78,22 +97,26 @@ export class PasteBtn
   show()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().style.display = 'flex';
+    return true;
   }
 
   /**
    * ボタン非表示
+   *
+   * @returns {boolean}
    */
   hide()
   {
     if (!this.element()) {
-      return;
+      return false;
     }
 
     this.element().style.display = 'none';
+    return true;
   }
 
   /**
@@ -125,13 +148,13 @@ export class PasteBtn
       return false;
     }
 
-    chrome.storage.local.get([this.#form.storageName()], (result) => {
-      if (!result.hasOwnProperty(this.#form.storageName())) {
+    chrome.storage.local.get([this.#storageName.get()], (result) => {
+      if (!result.hasOwnProperty(this.#storageName.get())) {
         console.log('copy data not exists. clickEvent');
         return false;
       }
 
-      let object = JSON.parse(result[this.#form.storageName()]);
+      let object = JSON.parse(result[this.#storageName.get()]);
 
       Object.keys(object).forEach((key) => {
         // 特定の名称でない

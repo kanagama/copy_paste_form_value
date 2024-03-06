@@ -2,9 +2,9 @@ import Constants from "../const.js";
 import { Status } from "./status.js";
 
 /**
- *
+ * ストレージ切り替えクラス
  */
-export class MessageClass
+export class StorageClass
 {
   #status;
 
@@ -23,11 +23,11 @@ export class MessageClass
    */
   storageKey()
   {
-    return Constants.FlashMessageCheckboxId;
+    return Constants.StorageCheckboxId;
   }
 
   /**
-   * hidden 要素のコピー・ペースト可否を切り替える
+   * storage 要素のON/OFFを切り替える
    *
    * @returns {boolean}
    */
@@ -41,9 +41,9 @@ export class MessageClass
         console.log('saved this ' + this.storageKey() + '.');
       });
 
-      this.#status.removeMessage();
+      this.#status.removeStorage();
       if (toggle) {
-        this.#status.addMessage();
+        this.#status.addStorage();
       }
     });
 

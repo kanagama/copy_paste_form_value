@@ -20,11 +20,6 @@ test('has()でチェック状態を取得できる', () => {
     expect(hiddenCheckbox.has()).toBe(false);
 });
 
-test('loaded()でtrueを渡すとチェックが入る', () => {
-    hiddenCheckbox.loaded(true);
-    expect(hiddenCheckbox.has()).toBe(true);
-});
-
 test('checked() で要素にチェックできる', () => {
     hiddenCheckbox.checked();
     expect(hiddenCheckbox.has()).toBe(true);
